@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scegli il tuo abbonamento — Athlon Club</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+:root {
+  --o:#e85d1a; --sand:#F5F0E8; --ink:#1a1916;
+  --ink2:#2d2b27; --muted:#8a8680; --border:rgba(26,25,22,0.1);
+  --green:#2a7a4a;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip}
+body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:clip;width:100%;font-size:15px;line-height:1.6}
+
+/* NAV minimal — no distrazioni */
+.topbar{background:var(--ink);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo-link{text-decoration:none;display:flex;align-items:center}
+.nav-logo-img{height:28px;width:auto;display:block}
+.topbar-back{font-size:11px;color:rgba(245,240,232,0.4);letter-spacing:1px;text-decoration:none;transition:color .2s}
+.topbar-back:hover{color:var(--sand)}
+
+/* HERO BENVENUTO */
+.hero{background:var(--ink);color:var(--sand);padding:48px 20px 56px;position:relative;overflow:hidden}
+.hero::after{content:'ATHLON';position:absolute;right:-12px;bottom:-24px;font-family:'Barlow Condensed',sans-serif;font-size:100px;font-weight:900;color:rgba(245,240,232,0.03);line-height:1;pointer-events:none;user-select:none;letter-spacing:-2px}
+.hero-pre{font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--o);margin-bottom:12px}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(42px,10vw,72px);font-weight:900;line-height:.9;text-transform:uppercase;letter-spacing:-1px;margin-bottom:20px}
+.hero-title em{font-style:italic;font-weight:300;color:rgba(245,240,232,0.5)}
+.hero-sub{font-size:16px;color:rgba(245,240,232,0.6);line-height:1.6;max-width:480px}
+.hero-sub strong{color:var(--sand);font-weight:500}
+
+/* TRUST STRIP */
+.trust{background:rgba(245,240,232,0.05);border-top:1px solid rgba(245,240,232,0.08);padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px 20px}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(245,240,232,0.5)}
+.trust-item::before{content:'✓';color:var(--o);font-weight:700;font-size:11px}
+
+/* CONTENUTO */
+.wrap{}
+.sec{padding:40px 20px;border-bottom:1px solid var(--border)}
+.sec:last-child{border-bottom:none}
+.sec-lbl{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--o);margin-bottom:8px}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,7vw,42px);font-weight:700;text-transform:uppercase;line-height:1;letter-spacing:-.5px;margin-bottom:6px}
+.sec-sub{font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:28px}
+
+/* PLAN CARD */
+.plan-card{border-radius:16px;overflow:hidden;margin-bottom:20px}
+.plan-card:last-child{margin-bottom:0}
+.plan-card.smart{background:var(--ink);color:var(--sand)}
+.plan-card.premium{background:var(--o);color:white}
+
+/* Header piano */
+.plan-head{padding:22px 20px 16px}
+.plan-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:10px}
+.plan-card.premium .plan-badge{background:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8)}
+.plan-card.smart .plan-badge{background:rgba(245,240,232,0.1);color:rgba(245,240,232,0.5)}
+.plan-name{font-family:'Bebas Neue','Barlow Condensed',sans-serif;font-size:40px;font-weight:400;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.plan-desc{font-size:14px;line-height:1.55}
+.plan-card.smart .plan-desc{color:rgba(245,240,232,0.55)}
+.plan-card.premium .plan-desc{color:rgba(255,255,255,0.75)}
+
+/* Attività incluse — su sfondo piano */
+.plan-activities{padding:14px 20px 16px}
+.plan-activities-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.plan-card.smart .plan-activities-title{color:rgba(245,240,232,0.35)}
+.plan-card.premium .plan-activities-title{color:rgba(255,255,255,0.5)}
+.plan-act-list{list-style:none;display:flex;flex-wrap:wrap;gap:5px}
+.plan-act-list li{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:500}
+.plan-card.smart .plan-act-list li{background:rgba(245,240,232,0.07);color:rgba(245,240,232,0.65)}
+.plan-card.premium .plan-act-list li{background:rgba(255,255,255,0.18);color:white}
+
+/* Opzioni prezzo — su sfondo piano */
+.plan-option{padding:14px 20px;display:flex;flex-direction:column;gap:4px}
+.plan-option+.plan-option{border-top:1px solid}
+.plan-card.smart .plan-option+.plan-option{border-color:rgba(245,240,232,0.08)}
+.plan-card.premium .plan-option+.plan-option{border-color:rgba(255,255,255,0.2)}
+.plan-option-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.plan-option-label{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px}
+.plan-card.smart .plan-option-label{color:rgba(245,240,232,0.4)}
+.plan-card.premium .plan-option-label{color:rgba(255,255,255,0.6)}
+.plan-option-price{display:flex;align-items:baseline;gap:4px;flex-shrink:0}
+.plan-option-price .amount{font-family:'Bebas Neue','Barlow Condensed',sans-serif;font-size:44px;font-weight:400;line-height:1}
+.plan-option-price .period{font-size:12px}
+.plan-card.smart .plan-option-price .period{color:rgba(245,240,232,0.4)}
+.plan-card.premium .plan-option-price .period{color:rgba(255,255,255,0.6)}
+.plan-option-note{font-size:13px;line-height:1.55}
+.plan-card.smart .plan-option-note{color:rgba(245,240,232,0.4)}
+.plan-card.premium .plan-option-note{color:rgba(255,255,255,0.6)}
+.plan-option-savings{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-top:2px}
+.plan-card.smart .plan-option-savings{color:#6fcf97;background:rgba(111,207,151,0.1)}
+.plan-card.premium .plan-option-savings{color:white;background:rgba(255,255,255,0.2)}
+
+/* divider */
+.plan-divider{height:1px;margin:0 22px}
+.plan-card.smart .plan-divider{background:rgba(245,240,232,0.08)}
+.plan-card.premium .plan-divider{background:rgba(255,255,255,0.2)}
+
+/* OPTION CTA su sfondo piano */
+.plan-cta{display:none}
+.option-cta{display:block;width:100%;text-align:center;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:13px 16px;text-decoration:none;border-radius:50px;transition:all .25s;margin-top:10px}
+.plan-card.smart .option-cta{background:var(--o);color:white}
+.plan-card.smart .option-cta:hover{background:white;color:var(--o)}
+.plan-card.premium .option-cta{background:var(--ink);color:white}
+.plan-card.premium .option-cta:hover{background:white;color:var(--ink)}
+.activation-note{background:rgba(26,25,22,0.04);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--muted);line-height:1.6;margin-top:16px}
+.activation-note strong{color:var(--ink2)}
+
+/* GUEST PASS */
+.guest-box{background:var(--ink);color:var(--sand);padding:24px 20px;border-radius:16px;margin-bottom:28px}
+.guest-pre{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--o);margin-bottom:8px}
+.guest-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.guest-body{font-size:15px;color:rgba(245,240,232,0.65);line-height:1.65;margin-bottom:18px}
+.guest-price{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;color:var(--sand);line-height:1;margin-bottom:4px}
+.guest-price span{font-size:18px;font-weight:300;color:rgba(245,240,232,0.5)}
+.guest-code{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;letter-spacing:2px;background:rgba(245,240,232,0.08);padding:6px 14px;border-radius:20px;color:rgba(245,240,232,0.6);margin-bottom:18px;cursor:pointer;border:none;transition:all .2s}
+.guest-code:hover{background:rgba(245,240,232,0.15);color:var(--sand)}
+.guest-code.copied{background:rgba(111,207,151,0.2);color:#6fcf97}
+.guest-btn{display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--o);color:white;padding:12px 22px;text-decoration:none;border-radius:50px;transition:background .2s}
+.guest-btn:hover{background:#c94d0f}
+
+/* SINGOLI */
+.singoli-grid{display:flex;flex-direction:column;gap:0}
+.singolo-item{padding:14px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.singolo-item:last-child{border-bottom:none}
+.singolo-name{font-size:16px;font-weight:500}
+.singolo-note{font-size:11px;color:var(--muted)}
+.singolo-price{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:var(--ink);flex-shrink:0;white-space:nowrap}
+
+/* PERSONAL */
+.pt-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+.pt-table th{text-align:left;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:8px 0;border-bottom:2px solid var(--border)}
+.pt-table td{padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
+.pt-table tr:last-child td{border-bottom:none}
+.pt-table td:last-child{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;text-align:right}
+.pt-note{font-size:14px;color:var(--muted);margin-bottom:14px}
+
+/* FAQ */
+.faq-item{border-top:1px solid var(--border);overflow:hidden}
+.faq-item:last-child{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:16px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--ink);line-height:1.4}
+.faq-q:hover{color:var(--o)}
+.faq-icon{font-size:18px;color:var(--o);flex-shrink:0;line-height:1;transition:transform .25s;margin-top:1px}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{font-size:14px;color:var(--ink2);line-height:1.65;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:16px}
+.faq-a a{color:var(--o);text-decoration:none}
+.faq-a a:hover{text-decoration:underline}
+
+/* OPTION CTA inline */
+.option-cta{display:block;width:100%;text-align:center;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:11px 16px;text-decoration:none;border-radius:2px;transition:all .2s;margin-top:10px}
+.option-cta.dark{background:var(--ink);color:var(--sand)}
+.option-cta.dark:hover{background:var(--o)}
+.option-cta.orange{background:var(--o);color:white}
+.option-cta.orange:hover{background:#c94d0f}
+.option-cta.outline-dark{background:transparent;color:var(--ink);border:1px solid rgba(26,25,22,0.2)}
+.option-cta.outline-dark:hover{background:var(--ink);color:var(--sand)}
+.option-cta.outline-white{background:transparent;color:white;border:1px solid rgba(255,255,255,0.3)}
+.option-cta.outline-white:hover{background:white;color:var(--o)}
+
+/* VIRTUAL TOUR */
+.tour-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-bottom:16px;background:var(--ink)}
+.tour-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+/* FOOTER */
+.footer-mini{background:var(--ink);color:rgba(245,240,232,0.3);padding:28px 20px;font-size:11px;line-height:1.8;text-align:center}
+.footer-mini strong{color:rgba(245,240,232,0.6)}
+.footer-mini a{color:inherit;text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="https://www.athlonroma.it" class="logo-link"><img src="data:image/png;base64,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" alt="Athlon Club" class="nav-logo-img"></a>
+  <a href="https://www.athlonroma.it" class="topbar-back">← Torna al sito</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pre">Benvenuto nel club</div>
+  <h1 class="hero-title">Scegli il<br>tuo accesso.<br><em>Inizia oggi.</em></h1>
+  <p class="hero-sub">Hai già scoperto Athlon. Ora è semplice: <strong>scegli il piano</strong> che fa per te e iscriviti online in pochi minuti.</p>
+  <div class="trust">
+    <span class="trust-item">Iscrizione online immediata</span>
+    <span class="trust-item">Sospensioni illimitate</span>
+    <span class="trust-item">Accesso da mobile via App</span>
+    <span class="trust-item">Staff disponibile 6:00–22:00</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ABBONAMENTI -->
+  <div class="sec">
+    <div class="sec-lbl">Abbonamenti adulti</div>
+    <h2 class="sec-title">Smart o Premium</h2>
+    <p class="sec-sub">Due piani, tre modalità di pagamento ciascuno. Stesso club, accessi diversi.</p>
+
+    <!-- SMART -->
+    <div class="plan-card smart">
+      <div class="plan-head">
+        <div class="plan-badge">Essenziale</div>
+        <div class="plan-name">Smart</div>
+        <div class="plan-desc">Sala pesi, nuoto libero e allenamenti online. L'essenziale per allenarti ogni giorno.</div>
+      </div>
+      <div class="plan-activities">
+        <div class="plan-activities-title">Attività incluse</div>
+        <ul class="plan-act-list">
+          <li>Gym Floor</li>
+          <li>Nuoto Libero Assistito</li>
+          <li>Athlon TV</li>
+        </ul>
+      </div>
+      <div class="plan-option">
+          <div class="plan-option-header">
+            <div>
+              <div class="plan-option-label">Annuale — Pagamento mensile</div>
+              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
+              <span class="plan-option-savings">Risparmio €138 vs Flex</span>
+            </div>
+            <div class="plan-option-price"><span class="amount">75</span><span class="period">€/mese</span></div>
+          </div>
+          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=263" class="option-cta dark">Scegli questo piano →</a>
+        </div>
+        <div class="plan-option">
+          <div class="plan-option-header">
+            <div>
+              <div class="plan-option-label">Annuale — Pagamento unico</div>
+              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
+              <span class="plan-option-savings">Risparmio €438 vs Flex annuo</span>
+            </div>
+            <div class="plan-option-price"><span class="amount">750</span><span class="period">€/anno</span></div>
+          </div>
+          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=264" class="option-cta dark">Scegli questo piano →</a>
+        </div>
+        <div class="plan-option">
+          <div class="plan-option-header">
+            <div>
+              <div class="plan-option-label">Mensile Flex</div>
+              <div class="plan-option-note">Minimo 1 mese · disdetta via App in qualsiasi momento</div>
+            </div>
+            <div class="plan-option-price"><span class="amount">99</span><span class="period">€/mese</span></div>
+          </div>
+          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=254" class="option-cta dark">Scegli questo piano →</a>
+        </div>
+      <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=263" class="plan-cta dark" style="display:none">Scegli Smart →</a>
+      <div style="padding-bottom:8px"></div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="plan-card premium">
+      <div class="plan-head">
+        <div class="plan-badge">Consigliato · Accesso completo</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-desc">Tutto il club in un abbonamento: palestra, piscina, corsi, reformer e online.</div>
+      </div>
+      <div class="plan-activities">
+        <div class="plan-activities-title">Attività incluse</div>
+        <ul class="plan-act-list">
+          <li>Gym Floor</li>
+          <li>Corsi Fitness</li>
+          <li>Group Reformer</li>
+          <li>Aqua Fitness</li>
+          <li>Scuola Nuoto Adulti</li>
+          <li>Nuoto Libero Assistito</li>
+          <li>Corso Gestanti</li>
+          <li>Athlon TV</li>
+        </ul>
+      </div>
+      <div class="plan-option">
+          <div class="plan-option-header">
+            <div>
+              <div class="plan-option-label">Annuale — Pagamento mensile</div>
+              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
+              <span class="plan-option-savings">Risparmio €288 vs Flex</span>
+            </div>
+            <div class="plan-option-price"><span class="amount">95</span><span class="period">€/mese</span></div>
+          </div>
+          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=252" class="option-cta orange">Scegli questo piano →</a>
+        </div>
+        <div class="plan-option">
+          <div class="plan-option-header">
+            <div>
+              <div class="plan-option-label">Annuale — Pagamento unico</div>
+              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
+              <span class="plan-option-savings">Risparmio €488 vs Flex annuo</span>
+            </div>
+            <div class="plan-option-price"><span class="amount">950</span><span class="period">€/anno</span></div>
+          </div>
+          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=249" class="option-cta orange">Scegli questo piano →</a>
+        </div>
+        <div class="plan-option">
+          <div class="plan-option-header">
+            <div>
+              <div class="plan-option-label">Mensile Flex <span style="color:var(--o);font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(232,93,26,0.1);padding:2px 6px;border-radius:2px;margin-left:6px">PROMO</span></div>
+              <div class="plan-option-note">Minimo 1 mese · disdetta via App in qualsiasi momento</div>
+            </div>
+            <div class="plan-option-price"><span class="amount">119</span><span class="period">€/mese</span></div>
+          </div>
+          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=253" class="option-cta orange">Scegli questo piano →</a>
+        </div>
+      </div>
+      <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=252" class="plan-cta orange" style="display:none">Scegli Premium →</a>
+      <div style="padding-bottom:8px"></div>
+    </div>
+
+    <div class="activation-note">
+      <strong>Quota di attivazione:</strong> €50 una tantum, per tutti i piani. Include il badge di accesso e l'attivazione dell'account. Non è richiesta in caso di rinnovo. · <strong>Sospensioni:</strong> illimitate, €15/mese · <strong>Certificato medico:</strong> non agonistico, entro 2 settimane dalla prima lezione.
+    </div>
+  </div>
+
+  <!-- NON SEI ANCORA SICURO -->
+  <div class="sec">
+    <div class="sec-lbl">Non sei ancora sicuro?</div>
+    <h2 class="sec-title">Prova prima.</h2>
+    <p class="sec-sub" style="margin-bottom:20px">Una settimana per scoprire tutto il club, senza impegno.</p>
+    <div class="guest-box">
+      <div class="guest-pre">Guest Pass — 7 giorni</div>
+      <div class="guest-price">19 <span>€</span></div>
+      <div class="guest-body">7 giorni consecutivi di accesso completo a tutte le attività. Nessun rinnovo automatico, nessun impegno. Solo per chi non ha mai avuto un abbonamento Athlon dal 2021.</div>
+      <button class="guest-code" onclick="copyCode(this)" title="Clicca per copiare">Codice: GOLD7 · copia</button><br>
+      <a href="https://athlon.perfectgym.com/ClientPortal2/#/Registration" class="guest-btn">Attiva il Guest Pass →</a>
+    </div>
+  </div>
+
+  <!-- ACCESSI SINGOLI -->
+  <div class="sec">
+    <div class="sec-lbl">Senza abbonamento</div>
+    <h2 class="sec-title">Accessi singoli</h2>
+    <p class="sec-sub">Prenota e paga una lezione o un accesso alla volta. Badge di accesso €5 (una tantum).</p>
+    <div class="singoli-grid">
+      <div class="singolo-item"><div><div class="singolo-name">Gym Floor</div><div class="singolo-note">Accesso 90 minuti</div></div><div class="singolo-price">€20</div></div>
+      <div class="singolo-item"><div><div class="singolo-name">Corso Fitness</div><div class="singolo-note">85+ corsi tra cui scegliere</div></div><div class="singolo-price">€22</div></div>
+      <div class="singolo-item"><div><div class="singolo-name">Aqua Fitness</div><div class="singolo-note">Aqua Gym, Hydrobike, Gestanti</div></div><div class="singolo-price">€22</div></div>
+      <div class="singolo-item"><div><div class="singolo-name">Nuoto Libero Assistito</div><div class="singolo-note">Sessione 60 minuti</div></div><div class="singolo-price">€20</div></div>
+      <div class="singolo-item"><div><div class="singolo-name">Scuola Nuoto Adulti</div><div class="singolo-note">Base, Intermedio, Avanzato</div></div><div class="singolo-price">€22</div></div>
+      <div class="singolo-item"><div><div class="singolo-name">Group Reformer</div><div class="singolo-note">Gruppi da 10 con istruttore</div></div><div class="singolo-price">€25</div></div>
+    </div>
+    <a href="https://athlon.perfectgym.com/ClientPortal2/#/Classes/1/List" style="display:block;text-align:center;margin-top:20px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:var(--sand);padding:14px;text-decoration:none;border-radius:50px">Prenota una lezione →</a>
+  </div>
+
+  <!-- PERSONAL TRAINING -->
+  <div class="sec">
+    <div class="sec-lbl">Allenamento individuale</div>
+    <h2 class="sec-title">Personal Training</h2>
+    <p class="sec-sub">Aggiuntivo ad un abbonamento attivo. Seduta singola disponibile anche per esterni.</p>
+    <table class="pt-table">
+      <thead><tr><th>Pacchetto mensile</th><th style="text-align:right">Prezzo</th></tr></thead>
+      <tbody>
+        <tr><td>2 sedute al mese</td><td>€80</td></tr>
+        <tr><td>4 sedute al mese</td><td>€140</td></tr>
+        <tr><td>8 sedute al mese</td><td>€280</td></tr>
+      </tbody>
+    </table>
+    <p class="pt-note">Seduta singola: <strong>€45</strong> per iscritti · <strong>€55</strong> per esterni</p>
+    <a href="https://athlon.perfectgym.com/ClientPortal2/#/PersonalTraining?clubId=1&trainerId=null" style="display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:var(--sand);padding:12px 22px;text-decoration:none;border-radius:50px">Prenota una seduta →</a>
+  </div>
+
+  <!-- VIRTUAL TOUR + PLANNING -->
+  <div class="sec">
+    <div class="sec-lbl">Ancora qualche dubbio?</div>
+    <h2 class="sec-title">Guarda prima<br>di decidere.</h2>
+    <p class="sec-sub">Esplora gli spazi in autonomia e scarica il planning delle attività.</p>
+
+    <!-- Virtual Tour -->
+    <p style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Virtual Tour 360°</p>
+    <div class="tour-wrap">
+      <iframe
+        src="https://my.mpskin.com/it/tour/dwg8pjdrkh?play=1"
+        allow="accelerometer; gyroscope; fullscreen; xr-spatial-tracking"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        scrolling="no">
+      </iframe>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:24px">3.300 mq · Sala Pesi · Piscine · Reformer Studio · Training Experience</p>
+
+    <!-- Planning -->
+    <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:20px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div>
+        <p style="font-size:14px;font-weight:500;margin-bottom:3px">Planning attività 2025/26</p>
+        <p style="font-size:12px;color:var(--muted)">200+ ore settimanali · aggiornato mensile</p>
+      </div>
+      <a href="https://www.athlonroma.it/planning"
+         style="flex-shrink:0;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--ink);color:var(--sand);padding:10px 16px;text-decoration:none;border-radius:2px;transition:background .2s"
+         onmouseover="this.style.background='#e85d1a'" onmouseout="this.style.background='#1a1916'"
+         target="_blank">Scarica ↓</a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sec">
+    <div class="sec-lbl">Domande frequenti</div>
+    <h2 class="sec-title">FAQ</h2>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Come posso pagare?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a">Accettiamo addebito su carta di credito/debito e addebito diretto su conto corrente (IBAN). <a href="https://wiki.athlonroma.it/wikiathlon/generali/metodo-di-pagamento/" target="_blank">Tutti i dettagli qui →</a></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Ho bisogno del certificato medico?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a">Sì, è richiesto il certificato di idoneità alla pratica sportiva non agonistica. Va inviato a <a href="mailto:desk@athlonroma.it">desk@athlonroma.it</a> entro 2 settimane dalla prima lezione. <a href="https://wiki.athlonroma.it/wikiathlon/generali/certificato-medico/" target="_blank">Info qui →</a></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Come si prenota una lezione?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a">Tutte le prenotazioni si fanno dall'app Athlon Club o dal portale web. Puoi prenotare fino a 3 giorni prima della lezione. <a href="https://wiki.athlonroma.it/wikiathlon/generali/prenotazioni/" target="_blank">Guida completa →</a></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Posso sospendere l'abbonamento?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a">Sì, le sospensioni sono illimitate al costo di €15 al mese. Partono dal primo giorno del mese e vanno richieste almeno 10 giorni prima. <a href="https://wiki.athlonroma.it/wikiathlon/adulti/sospensione/" target="_blank">Come fare →</a></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Come disdico il rinnovo automatico?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a"><strong>Mensile Flex:</strong> direttamente dall'area riservata → Abbonamenti → Disdici rinnovo automatico.<br><strong>Annuale:</strong> via email a <a href="mailto:disdetta@athlonroma.it">disdetta@athlonroma.it</a> almeno 10 giorni prima del rinnovo.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Cosa succede in caso di infortunio?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a">È possibile sospendere l'abbonamento presentando documentazione medica di una struttura sanitaria nazionale. Richiesta via email a <a href="mailto:desk@athlonroma.it">desk@athlonroma.it</a>, sospensione minima 2 mesi.</div>
+    </div>
+  </div>
+
+  <!-- ORARI E CONTATTI -->
+  <div class="sec">
+    <div class="sec-lbl">Dove e quando</div>
+    <h2 class="sec-title">Vieni a trovarci</h2>
+    <p style="font-size:15px;margin-bottom:8px"><strong>Via Ugo Ojetti 134</strong> · 00137 Roma</p>
+    <p style="font-size:13px;color:var(--muted);line-height:1.8">Lun–Ven: 6:00 – 22:00<br>Sabato: 8:00 – 20:00<br>Domenica: 9:30 – 13:00</p>
+    <a href="https://automazione.n8ndevelop.it/form/a4283d20-5832-46a3-9d88-df3561060e12?source=SitoWeb" style="display:inline-block;margin-top:16px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--ink);padding:11px 20px;border:1px solid var(--border);text-decoration:none;border-radius:50px">Parla con il nostro staff →</a>
+  </div>
+
+</div><!-- /wrap -->
+
+<div class="footer-mini">
+  <strong>Athlon Club</strong> · Point 2000 Srl SSD · Via Ugo Ojetti 134, 00137 Roma · P.IVA 05154811003<br>
+  <a href="https://www.athlonroma.it/regolamento">Termini e Condizioni</a> · <a href="https://www.athlonroma.it/privacy/">Privacy Policy</a><br>
+  Affiliazione FIN 996434 · ASI LAZ-RM4453 · CSEN 71519
+</div>
+
+<script>
+function copyCode(btn) {
+  navigator.clipboard.writeText('GOLD7').then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = 'GOLD7 · copiato ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
