@@ -1,460 +1,756 @@
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scegli il tuo abbonamento — Athlon Club</title>
+<title>Athlon Club Roma – Prenotazione Prove</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
-
 :root {
-  --o:#e85d1a; --sand:#F5F0E8; --ink:#1a1916;
-  --ink2:#2d2b27; --muted:#8a8680; --border:rgba(26,25,22,0.1);
-  --green:#2a7a4a;
+  --orange: #ff5701;
+  --sand: #F5F0E8;
+  --ink: #1a1916;
+  --ink2: #111318;
+  --white: #ffffff;
+  --muted: #6b6760;
+  --border: rgba(255,87,1,0.18);
+  --card-bg: rgba(255,255,255,0.04);
+  --input-bg: rgba(255,255,255,0.06);
+  --input-border: rgba(255,255,255,0.12);
+  --radius: 8px;
+  --radius-lg: 16px;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{overflow-x:clip}
-body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:clip;width:100%;font-size:15px;line-height:1.6}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--ink2);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(255,87,1,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(255,87,1,0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+.header {
+  padding: 40px 0 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+.logo-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.logo-accent { width: 28px; height: 3px; background: var(--orange); border-radius: 2px; }
+.logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.header h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 8vw, 52px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.header h1 span { color: var(--orange); }
+.header p { font-size: 14px; color: var(--muted); line-height: 1.5; }
 
-/* NAV minimal — no distrazioni */
-.topbar{background:var(--ink);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
-.logo-link{text-decoration:none;display:flex;align-items:center}
-.nav-logo-img{height:28px;width:auto;display:block}
-.topbar-back{font-size:11px;color:rgba(245,240,232,0.4);letter-spacing:1px;text-decoration:none;transition:color .2s}
-.topbar-back:hover{color:var(--sand)}
+/* STEPS */
+.steps {
+display: flex;
+align-items: center;
+gap: 6px;
+margin-bottom: 32px;
+}
+.step-dot {
+width: 28px; height: 28px;
+border-radius: 50%;
+border: 2px solid var(–input-border);
+display: flex; align-items: center; justify-content: center;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700; font-size: 13px;
+color: var(–muted);
+transition: all 0.3s;
+flex-shrink: 0;
+}
+.step-dot.active { border-color: var(–orange); background: var(–orange); color: white; box-shadow: 0 0 12px rgba(255,87,1,0.4); }
+.step-dot.done { border-color: var(–orange); background: rgba(255,87,1,0.15); color: var(–orange); }
+.step-line { flex: 1; height: 1px; background: var(–input-border); transition: background 0.3s; }
+.step-line.done { background: var(–orange); }
 
-/* HERO BENVENUTO */
-.hero{background:var(--ink);color:var(--sand);padding:48px 20px 56px;position:relative;overflow:hidden}
-.hero::after{content:'ATHLON';position:absolute;right:-12px;bottom:-24px;font-family:'Barlow Condensed',sans-serif;font-size:100px;font-weight:900;color:rgba(245,240,232,0.03);line-height:1;pointer-events:none;user-select:none;letter-spacing:-2px}
-.hero-pre{font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--o);margin-bottom:12px}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(48px,11vw,80px);font-weight:900;line-height:.9;text-transform:uppercase;letter-spacing:-1px;margin-bottom:20px}
-.hero-title em{font-style:italic;font-weight:300;color:rgba(245,240,232,0.5)}
-.hero-sub{font-size:17px;color:rgba(245,240,232,0.6);line-height:1.6;max-width:480px}
-.hero-sub strong{color:var(--sand);font-weight:500}
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; }
 
-/* TRUST STRIP */
-.trust{background:rgba(245,240,232,0.05);border-top:1px solid rgba(245,240,232,0.08);padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px 20px}
-.trust-item{display:flex;align-items:center;gap:7px;font-size:14px;color:rgba(245,240,232,0.5)}
-.trust-item::before{content:'✓';color:var(--o);font-weight:700;font-size:11px}
+/* SECTION */
+.section { margin-bottom: 28px; }
+.section-label {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 13px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–orange);
+margin-bottom: 16px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.section-label::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
 
-/* CONTENUTO */
-.wrap{}
-.sec{padding:40px 20px;border-bottom:1px solid var(--border)}
-.sec:last-child{border-bottom:none}
-.sec-lbl{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--o);margin-bottom:8px}
-.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,8vw,48px);font-weight:700;text-transform:uppercase;line-height:1;letter-spacing:-.5px;margin-bottom:6px}
-.sec-sub{font-size:16px;color:var(--muted);line-height:1.65;margin-bottom:28px}
+/* SPORT BTNS */
+.sport-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sport-btn {
+background: var(–card-bg);
+border: 1.5px solid var(–input-border);
+border-radius: var(–radius-lg);
+padding: 20px 16px;
+cursor: pointer;
+transition: all 0.2s;
+text-align: center;
+position: relative;
+overflow: hidden;
+color: var(–white);
+}
+.sport-btn::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, rgba(255,87,1,0.15), transparent);
+opacity: 0;
+transition: opacity 0.2s;
+}
+.sport-btn:hover::before, .sport-btn.active::before { opacity: 1; }
+.sport-btn.active { border-color: var(–orange); box-shadow: 0 0 0 1px var(–orange), 0 0 24px rgba(255,87,1,0.15); }
+.sport-btn .icon { font-size: 28px; margin-bottom: 8px; display: block; }
+.sport-btn .label { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.05em; text-transform: uppercase; display: block; }
+.sport-btn .sub { font-size: 11px; color: var(–muted); margin-top: 2px; display: block; }
 
-/* PLAN CARD */
-.plan-card{border-radius:16px;overflow:hidden;margin-bottom:20px}
-.plan-card:last-child{margin-bottom:0}
-.plan-card.smart{background:var(--ink);color:var(--sand)}
-.plan-card.premium{background:var(--o);color:white}
+/* CAT BTNS */
+.cat-options { display: flex; flex-direction: column; gap: 8px; }
+.cat-btn {
+background: var(–input-bg);
+border: 1.5px solid var(–input-border);
+border-radius: var(–radius);
+padding: 14px 18px;
+cursor: pointer;
+transition: all 0.2s;
+text-align: left;
+color: var(–white);
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.cat-btn:hover { border-color: rgba(255,87,1,0.35); }
+.cat-btn.active { border-color: var(–orange); background: rgba(255,87,1,0.08); }
+.cat-btn .cat-name { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase; }
+.cat-btn .cat-anni { font-size: 12px; color: var(–muted); margin-top: 1px; }
+.cat-btn .cat-badge { font-size: 11px; background: rgba(255,87,1,0.15); color: var(–orange); padding: 3px 8px; border-radius: 20px; font-weight: 600; letter-spacing: 0.05em; white-space: nowrap; }
 
-/* Header piano */
-.plan-head{padding:22px 20px 16px}
-.plan-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:10px}
-.plan-card.premium .plan-badge{background:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8)}
-.plan-card.smart .plan-badge{background:rgba(245,240,232,0.1);color:rgba(245,240,232,0.5)}
-.plan-name{font-family:'Bebas Neue','Barlow Condensed',sans-serif;font-size:46px;font-weight:400;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.plan-desc{font-size:15px;line-height:1.6}
-.plan-card.smart .plan-desc{color:rgba(245,240,232,0.55)}
-.plan-card.premium .plan-desc{color:rgba(255,255,255,0.75)}
+/* DATE GRID */
+.date-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+.date-btn {
+background: var(–input-bg);
+border: 1.5px solid var(–input-border);
+border-radius: var(–radius);
+padding: 12px 8px;
+cursor: pointer;
+transition: all 0.2s;
+text-align: center;
+color: var(–white);
+}
+.date-btn:hover { border-color: rgba(255,87,1,0.35); }
+.date-btn.active { border-color: var(–orange); background: rgba(255,87,1,0.1); box-shadow: 0 0 12px rgba(255,87,1,0.12); }
+.date-btn .d-day { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 22px; line-height: 1; }
+.date-btn .d-month { font-size: 11px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.date-btn .d-wd { font-size: 10px; color: var(–muted); text-transform: uppercase; margin-top: 2px; }
+.date-btn.active .d-month, .date-btn.active .d-wd { color: rgba(255,87,1,0.7); }
 
-/* Attività incluse — su sfondo piano */
-.plan-activities{padding:14px 20px 16px}
-.plan-activities-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.plan-card.smart .plan-activities-title{color:rgba(245,240,232,0.35)}
-.plan-card.premium .plan-activities-title{color:rgba(255,255,255,0.5)}
-.plan-act-list{list-style:none;display:flex;flex-wrap:wrap;gap:5px}
-.plan-act-list li{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:500}
-.plan-card.smart .plan-act-list li{background:rgba(245,240,232,0.07);color:rgba(245,240,232,0.65)}
-.plan-card.premium .plan-act-list li{background:rgba(255,255,255,0.18);color:white}
+/* ORA BTNS */
+.orario-options { display: flex; gap: 10px; flex-wrap: wrap; }
+.ora-btn {
+background: var(–input-bg);
+border: 1.5px solid var(–input-border);
+border-radius: var(–radius);
+padding: 10px 20px;
+cursor: pointer;
+transition: all 0.2s;
+color: var(–white);
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 17px;
+letter-spacing: 0.05em;
+}
+.ora-btn:hover { border-color: rgba(255,87,1,0.35); }
+.ora-btn.active { border-color: var(–orange); background: rgba(255,87,1,0.1); color: var(–orange); }
+.ora-fixed-label { font-size: 12px; color: var(–muted); align-self: center; margin-left: 4px; }
 
-/* Opzioni prezzo — su sfondo piano */
-.plan-option{padding:14px 20px;display:flex;flex-direction:column;gap:4px}
-.plan-option+.plan-option{border-top:1px solid}
-.plan-card.smart .plan-option+.plan-option{border-color:rgba(245,240,232,0.08)}
-.plan-card.premium .plan-option+.plan-option{border-color:rgba(255,255,255,0.2)}
-.plan-option-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.plan-option-label{font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px}
-.plan-card.smart .plan-option-label{color:rgba(245,240,232,0.4)}
-.plan-card.premium .plan-option-label{color:rgba(255,255,255,0.6)}
-.plan-option-price{display:flex;align-items:baseline;gap:4px;flex-shrink:0}
-.plan-option-price .amount{font-family:'Bebas Neue','Barlow Condensed',sans-serif;font-size:50px;font-weight:400;line-height:1}
-.plan-option-price .period{font-size:12px}
-.plan-card.smart .plan-option-price .period{color:rgba(245,240,232,0.4)}
-.plan-card.premium .plan-option-price .period{color:rgba(255,255,255,0.6)}
-.plan-option-note{font-size:14px;line-height:1.55}
-.plan-card.smart .plan-option-note{color:rgba(245,240,232,0.4)}
-.plan-card.premium .plan-option-note{color:rgba(255,255,255,0.6)}
-.plan-option-savings{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-top:2px}
-.plan-card.smart .plan-option-savings{color:#6fcf97;background:rgba(111,207,151,0.1)}
-.plan-card.premium .plan-option-savings{color:white;background:rgba(255,255,255,0.2)}
+/* FORM FIELDS */
+.field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-group.full { grid-template-columns: 1fr; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(–muted); }
+.field input, .field textarea {
+background: var(–input-bg);
+border: 1.5px solid var(–input-border);
+border-radius: var(–radius);
+padding: 12px 14px;
+color: var(–white);
+font-family: ‘DM Sans’, sans-serif;
+font-size: 15px;
+transition: border-color 0.2s, box-shadow 0.2s;
+outline: none;
+width: 100%;
+-webkit-appearance: none;
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.2); }
+.field input:focus, .field textarea:focus { border-color: var(–orange); box-shadow: 0 0 0 3px rgba(255,87,1,0.12); }
+.field textarea { resize: vertical; min-height: 90px; }
 
-/* divider */
-.plan-divider{height:1px;margin:0 22px}
-.plan-card.smart .plan-divider{background:rgba(245,240,232,0.08)}
-.plan-card.premium .plan-divider{background:rgba(255,255,255,0.2)}
+/* BUTTONS */
+.btn-submit {
+width: 100%;
+padding: 18px 32px;
+background: var(–orange);
+color: white;
+border: none;
+border-radius: 50px;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 18px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.2s;
+position: relative;
+overflow: hidden;
+}
+.btn-submit::before { content: ‘’; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent); }
+.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,87,1,0.4); }
+.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+.btn-back {
+background: transparent;
+border: 1.5px solid var(–input-border);
+color: var(–muted);
+border-radius: 50px;
+padding: 14px 28px;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 600;
+font-size: 15px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.2s;
+}
+.btn-back:hover { border-color: var(–orange); color: var(–white); }
+.btn-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+.btn-row .btn-submit { flex: 1; }
 
-/* OPTION CTA su sfondo piano */
-.plan-cta{display:none}
-.option-cta{display:block;width:100%;text-align:center;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:13px 16px;text-decoration:none;border-radius:50px;transition:all .25s;margin-top:10px}
-.plan-card.smart .option-cta{background:var(--o);color:white}
-.plan-card.smart .option-cta:hover{background:white;color:var(--o)}
-.plan-card.premium .option-cta{background:var(--ink);color:white}
-.plan-card.premium .option-cta:hover{background:white;color:var(--ink)}
-.activation-note{background:rgba(26,25,22,0.04);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--muted);line-height:1.6;margin-top:16px}
-.activation-note strong{color:var(--ink2)}
+/* ALERT */
+.alert { border-radius: var(–radius); padding: 12px 16px; font-size: 13px; margin-bottom: 20px; display: none; }
+.alert.error { background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.3); color: #fca5a5; }
 
-/* GUEST PASS */
-.guest-box{background:var(--ink);color:var(--sand);padding:24px 20px;border-radius:16px;margin-bottom:28px}
-.guest-pre{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--o);margin-bottom:8px}
-.guest-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;text-transform:uppercase;margin-bottom:6px}
-.guest-body{font-size:16px;color:rgba(245,240,232,0.65);line-height:1.65;margin-bottom:18px}
-.guest-price{font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:var(--sand);line-height:1;margin-bottom:4px}
-.guest-price span{font-size:18px;font-weight:300;color:rgba(245,240,232,0.5)}
-.guest-code{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;letter-spacing:2px;background:rgba(245,240,232,0.08);padding:6px 14px;border-radius:20px;color:rgba(245,240,232,0.6);margin-bottom:18px;cursor:pointer;border:none;transition:all .2s}
-.guest-code:hover{background:rgba(245,240,232,0.15);color:var(--sand)}
-.guest-code.copied{background:rgba(111,207,151,0.2);color:#6fcf97}
-.guest-btn{display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--o);color:white;padding:12px 22px;text-decoration:none;border-radius:50px;transition:background .2s}
-.guest-btn:hover{background:#c94d0f}
+/* RIEPILOGO */
+.riepilogo-card { background: var(–card-bg); border: 1px solid var(–border); border-radius: var(–radius-lg); padding: 20px; margin-bottom: 24px; }
+.riepilogo-card h3 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(–orange); margin-bottom: 12px; }
+.riepilogo-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
+.riepilogo-row:last-child { border-bottom: none; }
+.riepilogo-row .key { color: var(–muted); }
+.riepilogo-row .val { color: var(–white); font-weight: 500; }
 
-/* SINGOLI */
-.singoli-grid{display:flex;flex-direction:column;gap:0}
-.singolo-item{padding:14px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px}
-.singolo-item:last-child{border-bottom:none}
-.singolo-name{font-size:17px;font-weight:500}
-.singolo-note{font-size:11px;color:var(--muted)}
-.singolo-price{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:var(--ink);flex-shrink:0;white-space:nowrap}
+/* SUCCESS */
+.success-panel { text-align: center; padding: 48px 24px; }
+.success-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,87,1,0.12); border: 2px solid var(–orange); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 32px; }
+.success-panel h2 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 32px; text-transform: uppercase; margin-bottom: 12px; }
+.success-panel p { color: var(–muted); font-size: 15px; line-height: 1.6; }
 
-/* PERSONAL */
-.pt-table{width:100%;border-collapse:collapse;margin-bottom:16px}
-.pt-table th{text-align:left;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:8px 0;border-bottom:2px solid var(--border)}
-.pt-table td{padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
-.pt-table tr:last-child td{border-bottom:none}
-.pt-table td:last-child{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;text-align:right}
-.pt-note{font-size:15px;color:var(--muted);margin-bottom:14px}
+/* SPINNER */
+.spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 8px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* FAQ */
-.faq-item{border-top:1px solid var(--border);overflow:hidden}
-.faq-item:last-child{border-bottom:1px solid var(--border)}
-.faq-q{width:100%;background:none;border:none;text-align:left;padding:16px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ink);line-height:1.4}
-.faq-q:hover{color:var(--o)}
-.faq-icon{font-size:18px;color:var(--o);flex-shrink:0;line-height:1;transition:transform .25s;margin-top:1px}
-.faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a{font-size:15px;color:var(--ink2);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
-.faq-item.open .faq-a{max-height:400px;padding-bottom:16px}
-.faq-a a{color:var(--o);text-decoration:none}
-.faq-a a:hover{text-decoration:underline}
+.no-dates { padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(–input-border); border-radius: var(–radius); color: var(–muted); font-size: 13px; text-align: center; }
 
-/* OPTION CTA inline */
-.option-cta{display:block;width:100%;text-align:center;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:11px 16px;text-decoration:none;border-radius:2px;transition:all .2s;margin-top:10px}
-.option-cta.dark{background:var(--ink);color:var(--sand)}
-.option-cta.dark:hover{background:var(--o)}
-.option-cta.orange{background:var(--o);color:white}
-.option-cta.orange:hover{background:#c94d0f}
-.option-cta.outline-dark{background:transparent;color:var(--ink);border:1px solid rgba(26,25,22,0.2)}
-.option-cta.outline-dark:hover{background:var(--ink);color:var(--sand)}
-.option-cta.outline-white{background:transparent;color:white;border:1px solid rgba(255,255,255,0.3)}
-.option-cta.outline-white:hover{background:white;color:var(--o)}
-
-/* VIRTUAL TOUR */
-.tour-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-bottom:16px;background:var(--ink)}
-.tour-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-
-/* FOOTER */
-.footer-mini{background:var(--ink);color:rgba(245,240,232,0.3);padding:28px 20px;font-size:11px;line-height:1.8;text-align:center}
-.footer-mini strong{color:rgba(245,240,232,0.6)}
-.footer-mini a{color:inherit;text-decoration:none}
+@media (max-width: 480px) {
+.field-group { grid-template-columns: 1fr; }
+}
 </style>
+
 </head>
 <body>
+<div class="container">
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <a href="https://www.athlonroma.it" class="logo-link"><img src="data:image/png;base64,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" alt="Athlon Club" class="nav-logo-img"></a>
-  <a href="https://www.athlonroma.it" class="topbar-back">← Torna al sito</a>
+  <div class="header">
+    <div class="logo-line">
+      <div class="logo-accent"></div>
+      <span class="logo-text">Athlon Club Roma</span>
+      <div class="logo-accent"></div>
+    </div>
+    <h1>Prenota la <span>Prova</span></h1>
+    <p>Completa il modulo per prenotare una sessione di prova per il tuo atleta.<br>Solo date future disponibili.</p>
+  </div>
+
+  <div class="steps" id="stepsBar">
+    <div class="step-dot active" id="s1">1</div>
+    <div class="step-line" id="l1"></div>
+    <div class="step-dot" id="s2">2</div>
+    <div class="step-line" id="l2"></div>
+    <div class="step-dot" id="s3">3</div>
+    <div class="step-line" id="l3"></div>
+    <div class="step-dot" id="s4">4</div>
+  </div>
+
+  <!-- PAGE 1 -->
+
+  <div class="page active" id="page1">
+    <div class="section">
+      <div class="section-label">Seleziona lo Sport</div>
+      <div class="sport-selector" id="sportSelector">
+        <button class="sport-btn" data-sport="nuoto">
+          <span class="icon">🏊</span>
+          <span class="label">Nuoto</span>
+          <span class="sub">Agonismo &amp; Propaganda</span>
+        </button>
+        <button class="sport-btn" data-sport="pallanuoto">
+          <span class="icon">🤽</span>
+          <span class="label">Pallanuoto</span>
+          <span class="sub">Under 14 &amp; Acquagol</span>
+        </button>
+      </div>
+    </div>
+    <div class="section" id="catSection" style="display:none">
+      <div class="section-label">Categoria Atleta</div>
+      <div class="cat-options" id="catOptions"></div>
+    </div>
+    <div class="section" id="dateSection" style="display:none">
+      <div class="section-label">Scegli la Data</div>
+      <div class="date-grid" id="dateGrid"></div>
+    </div>
+    <div class="section" id="orarioSection" style="display:none">
+      <div class="section-label">Orario</div>
+      <div class="orario-options" id="orarioOptions"></div>
+    </div>
+    <div class="alert error" id="alert1"></div>
+    <button class="btn-submit" id="btnP1">Continua &rarr;</button>
+  </div>
+
+  <!-- PAGE 2 -->
+
+  <div class="page" id="page2">
+    <div class="section">
+      <div class="section-label">Dati Atleta</div>
+      <div class="field-group">
+        <div class="field"><label>Nome *</label><input type="text" id="atleta_nome" placeholder="Marco" autocomplete="off"></div>
+        <div class="field"><label>Cognome *</label><input type="text" id="atleta_cognome" placeholder="Rossi" autocomplete="off"></div>
+      </div>
+      <div class="field-group" style="margin-top:12px">
+        <div class="field"><label>Data di Nascita *</label><input type="date" id="atleta_dob"></div>
+      </div>
+      <div class="field-group full" style="margin-top:12px">
+        <div class="field">
+          <label>Livello natatorio ed esperienza *</label>
+          <textarea id="atleta_note" placeholder="Es: sa nuotare autonomamente, ha fatto corsi ma mai agonismo..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="alert error" id="alert2"></div>
+    <div class="btn-row">
+      <button class="btn-back" id="backP2">&#8592; Indietro</button>
+      <button class="btn-submit" id="btnP2">Continua &rarr;</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+
+  <div class="page" id="page3">
+    <div class="section">
+      <div class="section-label">Dati Genitore / Tutore</div>
+      <div class="field-group">
+        <div class="field"><label>Nome *</label><input type="text" id="gen_nome" placeholder="Luca" autocomplete="off"></div>
+        <div class="field"><label>Cognome *</label><input type="text" id="gen_cognome" placeholder="Rossi" autocomplete="off"></div>
+      </div>
+      <div class="field-group" style="margin-top:12px">
+        <div class="field"><label>Data di Nascita *</label><input type="date" id="gen_dob"></div>
+        <div class="field"><label>Cellulare *</label><input type="tel" id="gen_cel" placeholder="+39 333 1234567"></div>
+      </div>
+      <div class="field-group full" style="margin-top:12px">
+        <div class="field"><label>Email *</label><input type="email" id="gen_email" placeholder="genitore@email.com"></div>
+      </div>
+    </div>
+    <div class="alert error" id="alert3"></div>
+    <div class="btn-row">
+      <button class="btn-back" id="backP3">&#8592; Indietro</button>
+      <button class="btn-submit" id="btnP3">Continua &rarr;</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4 -->
+
+  <div class="page" id="page4">
+    <div class="section">
+      <div class="section-label">Riepilogo Prenotazione</div>
+      <div class="riepilogo-card" id="riepilogoCard"></div>
+    </div>
+    <div class="alert error" id="alert4"></div>
+    <div class="btn-row">
+      <button class="btn-back" id="backP4">&#8592; Modifica</button>
+      <button class="btn-submit" id="btnSend">Conferma Prenotazione</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+
+  <div class="page" id="pageSuccess">
+    <div class="success-panel">
+      <div class="success-icon">&#10003;</div>
+      <h2>Prenotazione <span style="color:var(--orange)">Inviata!</span></h2>
+      <p>La tua richiesta è stata ricevuta.<br>Ti contatteremo al cellulare indicato per confermare la prenotazione.</p>
+      <br>
+      <p style="font-size:12px;color:var(--muted)">Athlon Club Roma &middot; Via Ugo Ojetti 134 &middot; Roma</p>
+    </div>
+  </div>
+
 </div>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-pre">Benvenuto nel club</div>
-  <h1 class="hero-title">Scegli il<br>tuo accesso.<br><em>Inizia oggi.</em></h1>
-  <p class="hero-sub">Hai già scoperto Athlon. Ora è semplice: <strong>scegli il piano</strong> che fa per te e iscriviti online in pochi minuti.</p>
-  <div class="trust">
-    <span class="trust-item">Iscrizione online immediata</span>
-    <span class="trust-item">Sospensioni illimitate</span>
-    <span class="trust-item">Accesso da mobile via App</span>
-    <span class="trust-item">Staff disponibile 6:00–22:00</span>
-  </div>
-</div>
-
-<div class="wrap">
-
-  <!-- ABBONAMENTI -->
-  <div class="sec">
-    <div class="sec-lbl">Abbonamenti adulti</div>
-    <h2 class="sec-title">Smart o Premium</h2>
-    <p class="sec-sub">Due piani, tre modalità di pagamento ciascuno. Stesso club, accessi diversi.</p>
-
-    <!-- SMART -->
-    <div class="plan-card smart">
-      <div class="plan-head">
-        <div class="plan-badge">Essenziale</div>
-        <div class="plan-name">Smart</div>
-        <div class="plan-desc">Sala pesi, nuoto libero e allenamenti online. L'essenziale per allenarti ogni giorno.</div>
-      </div>
-      <div class="plan-activities">
-        <div class="plan-activities-title">Attività incluse</div>
-        <ul class="plan-act-list">
-          <li>Gym Floor</li>
-          <li>Nuoto Libero Assistito</li>
-          <li>Athlon TV</li>
-        </ul>
-      </div>
-      <div class="plan-option">
-          <div class="plan-option-header">
-            <div>
-              <div class="plan-option-label">Annuale — Pagamento mensile</div>
-              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
-              <span class="plan-option-savings">Risparmio €138 vs Flex</span>
-            </div>
-            <div class="plan-option-price"><span class="amount">75</span><span class="period">€/mese</span></div>
-          </div>
-          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=263" class="option-cta dark">Scegli questo piano →</a>
-        </div>
-        <div class="plan-option">
-          <div class="plan-option-header">
-            <div>
-              <div class="plan-option-label">Annuale — Pagamento unico</div>
-              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
-              <span class="plan-option-savings">Risparmio €438 vs Flex annuo</span>
-            </div>
-            <div class="plan-option-price"><span class="amount">750</span><span class="period">€/anno</span></div>
-          </div>
-          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=264" class="option-cta dark">Scegli questo piano →</a>
-        </div>
-        <div class="plan-option">
-          <div class="plan-option-header">
-            <div>
-              <div class="plan-option-label">Mensile Flex</div>
-              <div class="plan-option-note">Minimo 1 mese · disdetta via App in qualsiasi momento</div>
-            </div>
-            <div class="plan-option-price"><span class="amount">99</span><span class="period">€/mese</span></div>
-          </div>
-          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=254" class="option-cta dark">Scegli questo piano →</a>
-        </div>
-      <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=263" class="plan-cta dark" style="display:none">Scegli Smart →</a>
-      <div style="padding-bottom:8px"></div>
-    </div>
-
-    <!-- PREMIUM -->
-    <div class="plan-card premium">
-      <div class="plan-head">
-        <div class="plan-badge">Consigliato · Accesso completo</div>
-        <div class="plan-name">Premium</div>
-        <div class="plan-desc">Tutto il club in un abbonamento: palestra, piscina, corsi, reformer e online.</div>
-      </div>
-      <div class="plan-activities">
-        <div class="plan-activities-title">Attività incluse</div>
-        <ul class="plan-act-list">
-          <li>Gym Floor</li>
-          <li>Corsi Fitness</li>
-          <li>Group Reformer</li>
-          <li>Aqua Fitness</li>
-          <li>Scuola Nuoto Adulti</li>
-          <li>Nuoto Libero Assistito</li>
-          <li>Corso Gestanti</li>
-          <li>Athlon TV</li>
-        </ul>
-      </div>
-      <div class="plan-option">
-          <div class="plan-option-header">
-            <div>
-              <div class="plan-option-label">Annuale — Pagamento mensile</div>
-              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
-              <span class="plan-option-savings">Risparmio €288 vs Flex</span>
-            </div>
-            <div class="plan-option-price"><span class="amount">95</span><span class="period">€/mese</span></div>
-          </div>
-          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=252" class="option-cta orange">Scegli questo piano →</a>
-        </div>
-        <div class="plan-option">
-          <div class="plan-option-header">
-            <div>
-              <div class="plan-option-label">Annuale — Pagamento unico</div>
-              <div class="plan-option-note">Rinnovo automatico annuale · disdetta via email</div>
-              <span class="plan-option-savings">Risparmio €488 vs Flex annuo</span>
-            </div>
-            <div class="plan-option-price"><span class="amount">950</span><span class="period">€/anno</span></div>
-          </div>
-          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=249" class="option-cta orange">Scegli questo piano →</a>
-        </div>
-        <div class="plan-option">
-          <div class="plan-option-header">
-            <div>
-              <div class="plan-option-label">Mensile Flex <span style="color:var(--o);font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(232,93,26,0.1);padding:2px 6px;border-radius:2px;margin-left:6px">PROMO</span></div>
-              <div class="plan-option-note">Minimo 1 mese · disdetta via App in qualsiasi momento</div>
-            </div>
-            <div class="plan-option-price"><span class="amount">119</span><span class="period">€/mese</span></div>
-          </div>
-          <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=253" class="option-cta orange">Scegli questo piano →</a>
-        </div>
-      </div>
-      <a href="https://athlon.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=252" class="plan-cta orange" style="display:none">Scegli Premium →</a>
-      <div style="padding-bottom:8px"></div>
-    </div>
-
-    <div class="activation-note">
-      <strong>Quota di attivazione:</strong> €50 una tantum, per tutti i piani. Include il badge di accesso e l'attivazione dell'account. Non è richiesta in caso di rinnovo. · <strong>Sospensioni:</strong> illimitate, €15/mese · <strong>Certificato medico:</strong> non agonistico, entro 2 settimane dalla prima lezione.
-    </div>
-  </div>
-
-  <!-- NON SEI ANCORA SICURO -->
-  <div class="sec">
-    <div class="sec-lbl">Non sei ancora sicuro?</div>
-    <h2 class="sec-title">Prova prima.</h2>
-    <p class="sec-sub" style="margin-bottom:20px">Una settimana per scoprire tutto il club, senza impegno.</p>
-    <div class="guest-box">
-      <div class="guest-pre">Guest Pass — 7 giorni</div>
-      <div class="guest-price">19 <span>€</span></div>
-      <div class="guest-body">7 giorni consecutivi di accesso completo a tutte le attività. Nessun rinnovo automatico, nessun impegno. Solo per chi non ha mai avuto un abbonamento Athlon dal 2021.</div>
-      <button class="guest-code" onclick="copyCode(this)" title="Clicca per copiare">Codice: GOLD7 · copia</button><br>
-      <a href="https://athlon.perfectgym.com/ClientPortal2/#/Registration" class="guest-btn">Attiva il Guest Pass →</a>
-    </div>
-  </div>
-
-  <!-- ACCESSI SINGOLI -->
-  <div class="sec">
-    <div class="sec-lbl">Senza abbonamento</div>
-    <h2 class="sec-title">Accessi singoli</h2>
-    <p class="sec-sub">Prenota e paga una lezione o un accesso alla volta. Badge di accesso €5 (una tantum).</p>
-    <div class="singoli-grid">
-      <div class="singolo-item"><div><div class="singolo-name">Gym Floor</div><div class="singolo-note">Accesso 90 minuti</div></div><div class="singolo-price">€20</div></div>
-      <div class="singolo-item"><div><div class="singolo-name">Corso Fitness</div><div class="singolo-note">85+ corsi tra cui scegliere</div></div><div class="singolo-price">€22</div></div>
-      <div class="singolo-item"><div><div class="singolo-name">Aqua Fitness</div><div class="singolo-note">Aqua Gym, Hydrobike, Gestanti</div></div><div class="singolo-price">€22</div></div>
-      <div class="singolo-item"><div><div class="singolo-name">Nuoto Libero Assistito</div><div class="singolo-note">Sessione 60 minuti</div></div><div class="singolo-price">€20</div></div>
-      <div class="singolo-item"><div><div class="singolo-name">Scuola Nuoto Adulti</div><div class="singolo-note">Base, Intermedio, Avanzato</div></div><div class="singolo-price">€22</div></div>
-      <div class="singolo-item"><div><div class="singolo-name">Group Reformer</div><div class="singolo-note">Gruppi da 10 con istruttore</div></div><div class="singolo-price">€25</div></div>
-    </div>
-    <a href="https://athlon.perfectgym.com/ClientPortal2/#/Classes/1/List" style="display:block;text-align:center;margin-top:20px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:var(--sand);padding:14px;text-decoration:none;border-radius:50px">Prenota una lezione →</a>
-  </div>
-
-  <!-- PERSONAL TRAINING -->
-  <div class="sec">
-    <div class="sec-lbl">Allenamento individuale</div>
-    <h2 class="sec-title">Personal Training</h2>
-    <p class="sec-sub">Aggiuntivo ad un abbonamento attivo. Seduta singola disponibile anche per esterni.</p>
-    <table class="pt-table">
-      <thead><tr><th>Pacchetto mensile</th><th style="text-align:right">Prezzo</th></tr></thead>
-      <tbody>
-        <tr><td>2 sedute al mese</td><td>€80</td></tr>
-        <tr><td>4 sedute al mese</td><td>€140</td></tr>
-        <tr><td>8 sedute al mese</td><td>€280</td></tr>
-      </tbody>
-    </table>
-    <p class="pt-note">Seduta singola: <strong>€45</strong> per iscritti · <strong>€55</strong> per esterni</p>
-    <a href="https://athlon.perfectgym.com/ClientPortal2/#/PersonalTraining?clubId=1&trainerId=null" style="display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:var(--sand);padding:12px 22px;text-decoration:none;border-radius:50px">Prenota una seduta →</a>
-  </div>
-
-  <!-- VIRTUAL TOUR + PLANNING -->
-  <div class="sec">
-    <div class="sec-lbl">Ancora qualche dubbio?</div>
-    <h2 class="sec-title">Guarda prima<br>di decidere.</h2>
-    <p class="sec-sub">Esplora gli spazi in autonomia e scarica il planning delle attività.</p>
-
-    <!-- Virtual Tour -->
-    <p style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Virtual Tour 360°</p>
-    <div class="tour-wrap">
-      <iframe
-        src="https://my.mpskin.com/it/tour/dwg8pjdrkh?play=1"
-        allow="accelerometer; gyroscope; fullscreen; xr-spatial-tracking"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        scrolling="no">
-      </iframe>
-    </div>
-    <p style="font-size:11px;color:var(--muted);margin-bottom:24px">3.300 mq · Sala Pesi · Piscine · Reformer Studio · Training Experience</p>
-
-    <!-- Planning -->
-    <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:20px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px">
-      <div>
-        <p style="font-size:14px;font-weight:500;margin-bottom:3px">Planning attività 2025/26</p>
-        <p style="font-size:12px;color:var(--muted)">200+ ore settimanali · aggiornato mensile</p>
-      </div>
-      <a href="https://www.athlonroma.it/planning"
-         style="flex-shrink:0;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--ink);color:var(--sand);padding:10px 16px;text-decoration:none;border-radius:2px;transition:background .2s"
-         onmouseover="this.style.background='#e85d1a'" onmouseout="this.style.background='#1a1916'"
-         target="_blank">Scarica ↓</a>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="sec">
-    <div class="sec-lbl">Domande frequenti</div>
-    <h2 class="sec-title">FAQ</h2>
-
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)"><span>Come posso pagare?</span><span class="faq-icon">+</span></button>
-      <div class="faq-a">Accettiamo addebito su carta di credito/debito e addebito diretto su conto corrente (IBAN). <a href="https://wiki.athlonroma.it/wikiathlon/generali/metodo-di-pagamento/" target="_blank">Tutti i dettagli qui →</a></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)"><span>Ho bisogno del certificato medico?</span><span class="faq-icon">+</span></button>
-      <div class="faq-a">Sì, è richiesto il certificato di idoneità alla pratica sportiva non agonistica. Va inviato a <a href="mailto:desk@athlonroma.it">desk@athlonroma.it</a> entro 2 settimane dalla prima lezione. <a href="https://wiki.athlonroma.it/wikiathlon/generali/certificato-medico/" target="_blank">Info qui →</a></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)"><span>Come si prenota una lezione?</span><span class="faq-icon">+</span></button>
-      <div class="faq-a">Tutte le prenotazioni si fanno dall'app Athlon Club o dal portale web. Puoi prenotare fino a 3 giorni prima della lezione. <a href="https://wiki.athlonroma.it/wikiathlon/generali/prenotazioni/" target="_blank">Guida completa →</a></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)"><span>Posso sospendere l'abbonamento?</span><span class="faq-icon">+</span></button>
-      <div class="faq-a">Sì, le sospensioni sono illimitate al costo di €15 al mese. Partono dal primo giorno del mese e vanno richieste almeno 10 giorni prima. <a href="https://wiki.athlonroma.it/wikiathlon/adulti/sospensione/" target="_blank">Come fare →</a></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)"><span>Come disdico il rinnovo automatico?</span><span class="faq-icon">+</span></button>
-      <div class="faq-a"><strong>Mensile Flex:</strong> direttamente dall'area riservata → Abbonamenti → Disdici rinnovo automatico.<br><strong>Annuale:</strong> via email a <a href="mailto:disdetta@athlonroma.it">disdetta@athlonroma.it</a> almeno 10 giorni prima del rinnovo.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)"><span>Cosa succede in caso di infortunio?</span><span class="faq-icon">+</span></button>
-      <div class="faq-a">È possibile sospendere l'abbonamento presentando documentazione medica di una struttura sanitaria nazionale. Richiesta via email a <a href="mailto:desk@athlonroma.it">desk@athlonroma.it</a>, sospensione minima 2 mesi.</div>
-    </div>
-  </div>
-
-  <!-- ORARI E CONTATTI -->
-  <div class="sec">
-    <div class="sec-lbl">Dove e quando</div>
-    <h2 class="sec-title">Vieni a trovarci</h2>
-    <p style="font-size:15px;margin-bottom:8px"><strong>Via Ugo Ojetti 134</strong> · 00137 Roma</p>
-    <p style="font-size:13px;color:var(--muted);line-height:1.8">Lun–Ven: 6:00 – 22:00<br>Sabato: 8:00 – 20:00<br>Domenica: 9:30 – 13:00</p>
-    <a href="https://automazione.n8ndevelop.it/form/a4283d20-5832-46a3-9d88-df3561060e12?source=SitoWeb" style="display:inline-block;margin-top:16px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--ink);padding:11px 20px;border:1px solid var(--border);text-decoration:none;border-radius:50px">Parla con il nostro staff →</a>
-  </div>
-
-</div><!-- /wrap -->
-
-<div class="footer-mini">
-  <strong>Athlon Club</strong> · Point 2000 Srl SSD · Via Ugo Ojetti 134, 00137 Roma · P.IVA 05154811003<br>
-  <a href="https://www.athlonroma.it/regolamento">Termini e Condizioni</a> · <a href="https://www.athlonroma.it/privacy/">Privacy Policy</a><br>
-  Affiliazione FIN 996434 · ASI LAZ-RM4453 · CSEN 71519
-</div>
-
 <script>
-function copyCode(btn) {
-  navigator.clipboard.writeText('GOLD7').then(() => {
-    const orig = btn.innerHTML;
-    btn.innerHTML = 'GOLD7 · copiato ✓';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
-  });
+(function() {
+  'use strict';
+
+// ── STATE ──────────────────────────────────────────────
+var state = { sport: null, categoria: null, data: null, orario: null };
+var dateOraMap = {};
+
+// ── DATE HELPERS ───────────────────────────────────────
+var OGGI = new Date(); OGGI.setHours(0,0,0,0);
+var MESI = [‘Gen’,‘Feb’,‘Mar’,‘Apr’,‘Mag’,‘Giu’,‘Lug’,‘Ago’,‘Set’,‘Ott’,‘Nov’,‘Dic’];
+var GG   = [‘Dom’,‘Lun’,‘Mar’,‘Mer’,‘Gio’,‘Ven’,‘Sab’];
+
+function pad(n){ return String(n).padStart(2,‘0’); }
+function fmt(d){ return d.getFullYear()+’-’+pad(d.getMonth()+1)+’-’+pad(d.getDate()); }
+function isFuture(d){ var x=new Date(d); x.setHours(0,0,0,0); return x>OGGI; }
+
+function dateRange(from, to){
+var list=[], cur=new Date(from), end=new Date(to);
+cur.setHours(0,0,0,0);
+while(cur<=end){ if(isFuture(cur)) list.push(new Date(cur)); cur.setDate(cur.getDate()+1); }
+return list;
 }
 
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+function isExcluded(d, ranges){
+var s=fmt(d);
+return ranges.some(function(r){ return s>=r[0]&&s<=r[1]; });
 }
+
+function getDates(sport, cat){
+var m1=new Date(‘2026-05-02’), m2=new Date(‘2026-05-31’);
+var j1=new Date(‘2026-06-01’), j2=new Date(‘2026-06-30’);
+var exMay=[[‘2026-05-11’,‘2026-05-17’]];
+var exJun=[[‘2026-06-02’,‘2026-06-02’],[‘2026-06-29’,‘2026-06-29’]];
+var res=[];
+
+```
+if(sport==='nuoto'){
+  if(cat==='propaganda'){
+    dateRange(m1,m2).forEach(function(d){
+      if([1,4,6].indexOf(d.getDay())>=0 && !isExcluded(d,exMay)) res.push({d:d,ora:['17:30']});
+    });
+    dateRange(j1,j2).forEach(function(d){
+      if([1,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
+    });
+  } else if(cat==='agonismo'){
+    dateRange(m1,m2).forEach(function(d){
+      if([1,2,4,5].indexOf(d.getDay())>=0 && !isExcluded(d,exMay)) res.push({d:d,ora:['15:00']});
+    });
+    dateRange(j1,j2).forEach(function(d){
+      if([1,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
+    });
+  }
+} else {
+  if(cat==='u14'){
+    dateRange(m1,m2).forEach(function(d){
+      if([2,5].indexOf(d.getDay())>=0) res.push({d:d,ora:['14:30']});
+    });
+    dateRange(j1,j2).forEach(function(d){
+      if([2,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
+    });
+  } else if(cat==='acquagol'){
+    dateRange(m1,m2).forEach(function(d){
+      if([2,5].indexOf(d.getDay())>=0 && !isExcluded(d,exMay)) res.push({d:d,ora:['16:50']});
+    });
+    dateRange(j1,j2).forEach(function(d){
+      if([2,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
+    });
+  }
+}
+return res;
+```
+
+}
+
+// ── PAGES ──────────────────────────────────────────────
+function showPage(n){
+document.querySelectorAll(’.page’).forEach(function(p){ p.classList.remove(‘active’); });
+var pg = document.getElementById(‘page’+n);
+if(pg) pg.classList.add(‘active’);
+for(var i=1;i<=4;i++){
+var dot=document.getElementById(‘s’+i), line=document.getElementById(‘l’+i);
+if(!dot) continue;
+dot.classList.remove(‘active’,‘done’);
+if(i<n){ dot.classList.add(‘done’); dot.textContent=‘✓’; }
+else if(i===n){ dot.classList.add(‘active’); dot.textContent=i; }
+else { dot.textContent=i; }
+if(line) line.classList.toggle(‘done’, i<n);
+}
+window.scrollTo({top:0,behavior:‘smooth’});
+}
+
+function showAlert(id, msg){
+var el=document.getElementById(id);
+if(!el) return;
+el.textContent=msg; el.style.display=‘block’;
+setTimeout(function(){ el.style.display=‘none’; }, 4000);
+}
+
+// ── RENDER CATEGORIE ───────────────────────────────────
+function renderCategorie(sport){
+var cats = sport===‘nuoto’
+? [{id:‘propaganda’,nome:‘Propaganda’,anni:‘Nati 2014–2018’,badge:‘Lun/Gio/Sab’},
+{id:‘agonismo’,nome:‘Agonismo’,anni:‘Nati 2008–2015’,badge:‘Lun/Mar/Gio/Ven’}]
+: [{id:‘u14’,nome:‘Under 14’,anni:‘Nati 2013–2015’,badge:‘Mar/Ven’},
+{id:‘acquagol’,nome:‘Acquagol’,anni:‘Nati 2016–2018’,badge:‘Mar/Ven’}];
+var el=document.getElementById(‘catOptions’);
+el.innerHTML=’’;
+cats.forEach(function(c){
+var btn=document.createElement(‘button’);
+btn.className=‘cat-btn’;
+btn.dataset.cat=c.id;
+btn.innerHTML=’<div><div class="cat-name">’+c.nome+’</div><div class="cat-anni">’+c.anni+’</div></div>’
++’<div class="cat-badge">’+c.badge+’</div>’;
+el.appendChild(btn);
+});
+}
+
+// ── RENDER DATE ────────────────────────────────────────
+function renderDate(){
+var grid=document.getElementById(‘dateGrid’);
+var list=getDates(state.sport, state.categoria);
+dateOraMap={};
+grid.innerHTML=’’;
+if(!list.length){
+grid.innerHTML=’<div class="no-dates">Nessuna data disponibile.</div>’;
+return;
+}
+list.forEach(function(item){
+var key=fmt(item.d);
+dateOraMap[key]=item.ora;
+var btn=document.createElement(‘button’);
+btn.className=‘date-btn’;
+btn.dataset.key=key;
+btn.innerHTML=’<div class="d-day">’+item.d.getDate()+’</div>’
++’<div class="d-month">’+MESI[item.d.getMonth()]+’</div>’
++’<div class="d-wd">’+GG[item.d.getDay()]+’</div>’;
+grid.appendChild(btn);
+});
+}
+
+// ── RENDER ORARI ───────────────────────────────────────
+function renderOrari(orari){
+var el=document.getElementById(‘orarioOptions’);
+el.innerHTML=’’;
+state.orario=null;
+orari.forEach(function(o){
+var btn=document.createElement(‘button’);
+btn.className=‘ora-btn’;
+btn.dataset.ora=o;
+btn.textContent=o;
+el.appendChild(btn);
+});
+if(orari.length===1){
+state.orario=orari[0];
+el.querySelector(’.ora-btn’).classList.add(‘active’);
+var lbl=document.createElement(‘span’);
+lbl.className=‘ora-fixed-label’;
+lbl.textContent=‘orario fisso’;
+el.appendChild(lbl);
+}
+}
+
+// ── EVENT DELEGATION ───────────────────────────────────
+document.getElementById(‘sportSelector’).addEventListener(‘click’, function(e){
+var btn=e.target.closest(’.sport-btn’);
+if(!btn) return;
+state.sport=btn.dataset.sport;
+state.categoria=null; state.data=null; state.orario=null;
+document.querySelectorAll(’.sport-btn’).forEach(function(b){ b.classList.remove(‘active’); });
+btn.classList.add(‘active’);
+renderCategorie(state.sport);
+document.getElementById(‘catSection’).style.display=‘block’;
+document.getElementById(‘dateSection’).style.display=‘none’;
+document.getElementById(‘orarioSection’).style.display=‘none’;
+});
+
+document.getElementById(‘catOptions’).addEventListener(‘click’, function(e){
+var btn=e.target.closest(’.cat-btn’);
+if(!btn) return;
+state.categoria=btn.dataset.cat;
+state.data=null; state.orario=null;
+document.querySelectorAll(’.cat-btn’).forEach(function(b){ b.classList.remove(‘active’); });
+btn.classList.add(‘active’);
+renderDate();
+document.getElementById(‘dateSection’).style.display=‘block’;
+document.getElementById(‘orarioSection’).style.display=‘none’;
+});
+
+document.getElementById(‘dateGrid’).addEventListener(‘click’, function(e){
+var btn=e.target.closest(’.date-btn’);
+if(!btn) return;
+var key=btn.dataset.key;
+var orari=dateOraMap[key];
+if(!orari) return;
+state.data=key; state.orario=null;
+document.querySelectorAll(’.date-btn’).forEach(function(b){ b.classList.remove(‘active’); });
+btn.classList.add(‘active’);
+renderOrari(orari);
+document.getElementById(‘orarioSection’).style.display=‘block’;
+});
+
+document.getElementById(‘orarioOptions’).addEventListener(‘click’, function(e){
+var btn=e.target.closest(’.ora-btn’);
+if(!btn) return;
+state.orario=btn.dataset.ora;
+document.querySelectorAll(’.ora-btn’).forEach(function(b){ b.classList.remove(‘active’); });
+btn.classList.add(‘active’);
+});
+
+// ── NAVIGAZIONE ────────────────────────────────────────
+document.getElementById(‘btnP1’).addEventListener(‘click’, function(){
+if(!state.sport)     return showAlert(‘alert1’,‘Seleziona uno sport.’);
+if(!state.categoria) return showAlert(‘alert1’,‘Seleziona una categoria.’);
+if(!state.data)      return showAlert(‘alert1’,‘Seleziona una data.’);
+if(!state.orario)    return showAlert(‘alert1’,‘Seleziona un orario.’);
+showPage(2);
+});
+
+document.getElementById(‘backP2’).addEventListener(‘click’, function(){ showPage(1); });
+document.getElementById(‘btnP2’).addEventListener(‘click’, function(){
+var n=document.getElementById(‘atleta_nome’).value.trim();
+var c=document.getElementById(‘atleta_cognome’).value.trim();
+var d=document.getElementById(‘atleta_dob’).value;
+var note=document.getElementById(‘atleta_note’).value.trim();
+if(!n||!c) return showAlert(‘alert2’,‘Inserisci nome e cognome dell'atleta.’);
+if(!d)     return showAlert(‘alert2’,‘Inserisci la data di nascita dell'atleta.’);
+if(!note)  return showAlert(‘alert2’,‘Descrivi il livello natatorio dell'atleta.’);
+showPage(3);
+});
+
+document.getElementById(‘backP3’).addEventListener(‘click’, function(){ showPage(2); });
+document.getElementById(‘btnP3’).addEventListener(‘click’, function(){
+var n=document.getElementById(‘gen_nome’).value.trim();
+var c=document.getElementById(‘gen_cognome’).value.trim();
+var d=document.getElementById(‘gen_dob’).value;
+var cel=document.getElementById(‘gen_cel’).value.trim();
+var email=document.getElementById(‘gen_email’).value.trim();
+if(!n||!c)           return showAlert(‘alert3’,‘Inserisci nome e cognome del genitore.’);
+if(!d)               return showAlert(‘alert3’,‘Inserisci la data di nascita del genitore.’);
+if(!cel)             return showAlert(‘alert3’,‘Inserisci il numero di cellulare.’);
+if(!email||email.indexOf(’@’)<0) return showAlert(‘alert3’,‘Inserisci un'email valida.’);
+
+```
+var labels={nuoto:'Nuoto',pallanuoto:'Pallanuoto',propaganda:'Propaganda',agonismo:'Agonismo',u14:'Under 14',acquagol:'Acquagol'};
+var parts=state.data.split('-');
+var dateIt=parts[2]+'/'+parts[1]+'/'+parts[0];
+document.getElementById('riepilogoCard').innerHTML=
+  '<h3>Riepilogo</h3>'
+  +'<div class="riepilogo-row"><span class="key">Sport</span><span class="val">'+labels[state.sport]+'</span></div>'
+  +'<div class="riepilogo-row"><span class="key">Categoria</span><span class="val">'+labels[state.categoria]+'</span></div>'
+  +'<div class="riepilogo-row"><span class="key">Data</span><span class="val">'+dateIt+'</span></div>'
+  +'<div class="riepilogo-row"><span class="key">Orario</span><span class="val">'+state.orario+'</span></div>'
+  +'<div class="riepilogo-row"><span class="key">Atleta</span><span class="val">'+document.getElementById('atleta_nome').value+' '+document.getElementById('atleta_cognome').value+'</span></div>'
+  +'<div class="riepilogo-row"><span class="key">Genitore</span><span class="val">'+n+' '+c+'</span></div>'
+  +'<div class="riepilogo-row"><span class="key">Cellulare</span><span class="val">'+cel+'</span></div>'
+  +'<div class="riepilogo-row"><span class="key">Email</span><span class="val">'+email+'</span></div>';
+showPage(4);
+```
+
+});
+
+document.getElementById(‘backP4’).addEventListener(‘click’, function(){ showPage(3); });
+document.getElementById(‘btnSend’).addEventListener(‘click’, function(){
+var btn=document.getElementById(‘btnSend’);
+btn.disabled=true;
+btn.innerHTML=’<span class="spinner"></span>Invio in corso…’;
+
+```
+var payload={
+  sport: state.sport,
+  categoria: state.categoria,
+  data_prova: state.data,
+  orario: state.orario,
+  atleta:{
+    nome: document.getElementById('atleta_nome').value.trim(),
+    cognome: document.getElementById('atleta_cognome').value.trim(),
+    data_nascita: document.getElementById('atleta_dob').value,
+    note_livello: document.getElementById('atleta_note').value.trim()
+  },
+  genitore:{
+    nome: document.getElementById('gen_nome').value.trim(),
+    cognome: document.getElementById('gen_cognome').value.trim(),
+    data_nascita: document.getElementById('gen_dob').value,
+    cellulare: document.getElementById('gen_cel').value.trim(),
+    email: document.getElementById('gen_email').value.trim()
+  },
+  timestamp: new Date().toISOString(),
+  source: 'form-prove-athlon'
+};
+
+fetch('https://automazione.n8ndevelop.it/webhook/prenotazione-prove-athlon', {
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify(payload)
+})
+.then(function(r){
+  if(r.ok || r.status===200 || r.status===201 || r.status===202){
+    document.getElementById('stepsBar').style.display='none';
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById('pageSuccess').classList.add('active');
+  } else {
+    throw new Error('HTTP '+r.status);
+  }
+})
+.catch(function(){
+  btn.disabled=false;
+  btn.innerHTML='Conferma Prenotazione';
+  showAlert('alert4','Errore nell\'invio. Riprova o contatta lo staff.');
+});
+```
+
+});
+
+})();
 </script>
+
 </body>
 </html>
