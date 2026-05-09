@@ -5,751 +5,513 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Athlon Club Roma – Prenotazione Prove</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --orange: #ff5701;
-  --sand: #F5F0E8;
-  --ink: #1a1916;
-  --ink2: #111318;
+  --ink: #111318;
   --white: #ffffff;
   --muted: #6b6760;
-  --border: rgba(255,87,1,0.18);
-  --card-bg: rgba(255,255,255,0.04);
-  --input-bg: rgba(255,255,255,0.06);
-  --input-border: rgba(255,255,255,0.12);
-  --radius: 8px;
-  --radius-lg: 16px;
+  --border: rgba(255,87,1,0.2);
+  --ibg: rgba(255,255,255,0.06);
+  --iborder: rgba(255,255,255,0.12);
+  --r: 8px;
+  --rl: 16px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--ink2);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(255,87,1,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(255,87,1,0.06) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
-}
-.container {
-  position: relative;
-  z-index: 10;
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 0 20px 60px;
-}
-.header {
-  padding: 40px 0 32px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 36px;
-}
-.logo-line {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-.logo-accent { width: 28px; height: 3px; background: var(--orange); border-radius: 2px; }
-.logo-text {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 13px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--orange);
-}
-.header h1 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: clamp(32px, 8vw, 52px);
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  margin-bottom: 8px;
-}
-.header h1 span { color: var(--orange); }
-.header p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+html, body { background: var(--ink); color: var(--white); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 20px 80px; }
+
+/* HEADER */
+.hdr { padding: 40px 0 28px; text-align: center; border-bottom: 1px solid var(–border); margin-bottom: 32px; }
+.hdr-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; }
+.hdr-bar { width: 24px; height: 3px; background: var(–orange); border-radius: 2px; }
+.hdr-brand { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: var(–orange); }
+.hdr h1 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: clamp(34px,9vw,54px); text-transform: uppercase; line-height: 1; margin-bottom: 8px; }
+.hdr h1 em { color: var(–orange); font-style: normal; }
+.hdr p { font-size: 13px; color: var(–muted); line-height: 1.5; }
 
 /* STEPS */
-.steps {
-display: flex;
-align-items: center;
-gap: 6px;
-margin-bottom: 32px;
-}
-.step-dot {
-width: 28px; height: 28px;
-border-radius: 50%;
-border: 2px solid var(–input-border);
-display: flex; align-items: center; justify-content: center;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-weight: 700; font-size: 13px;
-color: var(–muted);
-transition: all 0.3s;
-flex-shrink: 0;
-}
-.step-dot.active { border-color: var(–orange); background: var(–orange); color: white; box-shadow: 0 0 12px rgba(255,87,1,0.4); }
-.step-dot.done { border-color: var(–orange); background: rgba(255,87,1,0.15); color: var(–orange); }
-.step-line { flex: 1; height: 1px; background: var(–input-border); transition: background 0.3s; }
-.step-line.done { background: var(–orange); }
+.steps { display: flex; align-items: center; gap: 6px; margin-bottom: 32px; }
+.sdot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(–iborder); display: flex; align-items: center; justify-content: center; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 13px; color: var(–muted); flex-shrink: 0; transition: all .25s; }
+.sdot.on { border-color: var(–orange); background: var(–orange); color: #fff; }
+.sdot.done { border-color: var(–orange); background: rgba(255,87,1,.15); color: var(–orange); }
+.sline { flex: 1; height: 1px; background: var(–iborder); transition: background .25s; }
+.sline.done { background: var(–orange); }
 
 /* PAGES */
-.page { display: none; }
-.page.active { display: block; }
+.pg { display: none; }
+.pg.on { display: block; }
 
 /* SECTION */
-.section { margin-bottom: 28px; }
-.section-label {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-weight: 700;
-font-size: 13px;
-letter-spacing: 0.18em;
-text-transform: uppercase;
-color: var(–orange);
-margin-bottom: 16px;
-display: flex;
-align-items: center;
-gap: 10px;
-}
-.section-label::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
+.sec { margin-bottom: 28px; }
+.sec-lbl { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(–orange); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.sec-lbl::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
 
-/* SPORT BTNS */
-.sport-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.sport-btn {
-background: var(–card-bg);
-border: 1.5px solid var(–input-border);
-border-radius: var(–radius-lg);
-padding: 20px 16px;
-cursor: pointer;
-transition: all 0.2s;
-text-align: center;
-position: relative;
-overflow: hidden;
-color: var(–white);
-}
-.sport-btn::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: linear-gradient(135deg, rgba(255,87,1,0.15), transparent);
-opacity: 0;
-transition: opacity 0.2s;
-}
-.sport-btn:hover::before, .sport-btn.active::before { opacity: 1; }
-.sport-btn.active { border-color: var(–orange); box-shadow: 0 0 0 1px var(–orange), 0 0 24px rgba(255,87,1,0.15); }
-.sport-btn .icon { font-size: 28px; margin-bottom: 8px; display: block; }
-.sport-btn .label { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.05em; text-transform: uppercase; display: block; }
-.sport-btn .sub { font-size: 11px; color: var(–muted); margin-top: 2px; display: block; }
+/* SPORT */
+.sport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sbtn { background: rgba(255,255,255,.04); border: 1.5px solid var(–iborder); border-radius: var(–rl); padding: 20px 14px; cursor: pointer; text-align: center; color: var(–white); transition: all .2s; }
+.sbtn:hover { border-color: rgba(255,87,1,.4); }
+.sbtn.on { border-color: var(–orange); background: rgba(255,87,1,.08); box-shadow: 0 0 20px rgba(255,87,1,.15); }
+.sbtn .ico { font-size: 30px; display: block; margin-bottom: 8px; }
+.sbtn .lbl { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 18px; text-transform: uppercase; display: block; }
+.sbtn .sub { font-size: 11px; color: var(–muted); margin-top: 2px; display: block; }
 
-/* CAT BTNS */
-.cat-options { display: flex; flex-direction: column; gap: 8px; }
-.cat-btn {
-background: var(–input-bg);
-border: 1.5px solid var(–input-border);
-border-radius: var(–radius);
-padding: 14px 18px;
-cursor: pointer;
-transition: all 0.2s;
-text-align: left;
-color: var(–white);
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
-.cat-btn:hover { border-color: rgba(255,87,1,0.35); }
-.cat-btn.active { border-color: var(–orange); background: rgba(255,87,1,0.08); }
-.cat-btn .cat-name { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase; }
-.cat-btn .cat-anni { font-size: 12px; color: var(–muted); margin-top: 1px; }
-.cat-btn .cat-badge { font-size: 11px; background: rgba(255,87,1,0.15); color: var(–orange); padding: 3px 8px; border-radius: 20px; font-weight: 600; letter-spacing: 0.05em; white-space: nowrap; }
+/* CAT */
+.cat-list { display: flex; flex-direction: column; gap: 8px; }
+.cbtn { background: var(–ibg); border: 1.5px solid var(–iborder); border-radius: var(–r); padding: 14px 16px; cursor: pointer; color: var(–white); display: flex; align-items: center; justify-content: space-between; transition: all .2s; }
+.cbtn:hover { border-color: rgba(255,87,1,.4); }
+.cbtn.on { border-color: var(–orange); background: rgba(255,87,1,.08); }
+.cbtn .cn { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; }
+.cbtn .ca { font-size: 12px; color: var(–muted); margin-top: 2px; }
+.cbtn .cb { font-size: 11px; background: rgba(255,87,1,.15); color: var(–orange); padding: 3px 8px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
 
-/* DATE GRID */
-.date-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
-.date-btn {
-background: var(–input-bg);
-border: 1.5px solid var(–input-border);
-border-radius: var(–radius);
-padding: 12px 8px;
-cursor: pointer;
-transition: all 0.2s;
-text-align: center;
-color: var(–white);
-}
-.date-btn:hover { border-color: rgba(255,87,1,0.35); }
-.date-btn.active { border-color: var(–orange); background: rgba(255,87,1,0.1); box-shadow: 0 0 12px rgba(255,87,1,0.12); }
-.date-btn .d-day { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 22px; line-height: 1; }
-.date-btn .d-month { font-size: 11px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.08em; }
-.date-btn .d-wd { font-size: 10px; color: var(–muted); text-transform: uppercase; margin-top: 2px; }
-.date-btn.active .d-month, .date-btn.active .d-wd { color: rgba(255,87,1,0.7); }
+/* DATE */
+.date-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px,1fr)); gap: 8px; }
+.dbtn { background: var(–ibg); border: 1.5px solid var(–iborder); border-radius: var(–r); padding: 12px 6px; cursor: pointer; text-align: center; color: var(–white); transition: all .2s; }
+.dbtn:hover { border-color: rgba(255,87,1,.4); }
+.dbtn.on { border-color: var(–orange); background: rgba(255,87,1,.1); }
+.dbtn .dd { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 24px; line-height: 1; }
+.dbtn .dm { font-size: 11px; color: var(–muted); text-transform: uppercase; letter-spacing: .06em; }
+.dbtn .dw { font-size: 10px; color: var(–muted); text-transform: uppercase; margin-top: 1px; }
+.dbtn.on .dm, .dbtn.on .dw { color: rgba(255,87,1,.7); }
 
-/* ORA BTNS */
-.orario-options { display: flex; gap: 10px; flex-wrap: wrap; }
-.ora-btn {
-background: var(–input-bg);
-border: 1.5px solid var(–input-border);
-border-radius: var(–radius);
-padding: 10px 20px;
-cursor: pointer;
-transition: all 0.2s;
-color: var(–white);
-font-family: ‘Barlow Condensed’, sans-serif;
-font-weight: 700;
-font-size: 17px;
-letter-spacing: 0.05em;
-}
-.ora-btn:hover { border-color: rgba(255,87,1,0.35); }
-.ora-btn.active { border-color: var(–orange); background: rgba(255,87,1,0.1); color: var(–orange); }
-.ora-fixed-label { font-size: 12px; color: var(–muted); align-self: center; margin-left: 4px; }
+/* ORA */
+.ora-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.obra { background: var(–ibg); border: 1.5px solid var(–iborder); border-radius: var(–r); padding: 10px 22px; cursor: pointer; color: var(–white); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: .05em; transition: all .2s; }
+.obra:hover { border-color: rgba(255,87,1,.4); }
+.obra.on { border-color: var(–orange); background: rgba(255,87,1,.1); color: var(–orange); }
+.ora-fixed { font-size: 12px; color: var(–muted); align-self: center; }
 
-/* FORM FIELDS */
-.field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.field-group.full { grid-template-columns: 1fr; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(–muted); }
-.field input, .field textarea {
-background: var(–input-bg);
-border: 1.5px solid var(–input-border);
-border-radius: var(–radius);
-padding: 12px 14px;
-color: var(–white);
-font-family: ‘DM Sans’, sans-serif;
-font-size: 15px;
-transition: border-color 0.2s, box-shadow 0.2s;
-outline: none;
-width: 100%;
--webkit-appearance: none;
-}
-.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.2); }
-.field input:focus, .field textarea:focus { border-color: var(–orange); box-shadow: 0 0 0 3px rgba(255,87,1,0.12); }
-.field textarea { resize: vertical; min-height: 90px; }
+/* FIELDS */
+.fg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fg.full { grid-template-columns: 1fr; }
+.fld { display: flex; flex-direction: column; gap: 5px; }
+.fld label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(–muted); }
+.fld input, .fld textarea { background: var(–ibg); border: 1.5px solid var(–iborder); border-radius: var(–r); padding: 12px 14px; color: var(–white); font-family: ‘DM Sans’, sans-serif; font-size: 15px; outline: none; width: 100%; -webkit-appearance: none; transition: border-color .2s; }
+.fld input::placeholder, .fld textarea::placeholder { color: rgba(255,255,255,.2); }
+.fld input:focus, .fld textarea:focus { border-color: var(–orange); }
+.fld textarea { resize: vertical; min-height: 88px; }
+.mt { margin-top: 12px; }
 
 /* BUTTONS */
-.btn-submit {
-width: 100%;
-padding: 18px 32px;
-background: var(–orange);
-color: white;
-border: none;
-border-radius: 50px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-weight: 700;
-font-size: 18px;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-cursor: pointer;
-transition: all 0.2s;
-position: relative;
-overflow: hidden;
-}
-.btn-submit::before { content: ‘’; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent); }
-.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,87,1,0.4); }
-.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-.btn-back {
-background: transparent;
-border: 1.5px solid var(–input-border);
-color: var(–muted);
-border-radius: 50px;
-padding: 14px 28px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-weight: 600;
-font-size: 15px;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-cursor: pointer;
-transition: all 0.2s;
-}
-.btn-back:hover { border-color: var(–orange); color: var(–white); }
-.btn-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
-.btn-row .btn-submit { flex: 1; }
+.btn { width: 100%; padding: 17px 32px; background: var(–orange); color: #fff; border: none; border-radius: 50px; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: all .2s; }
+.btn:hover { box-shadow: 0 6px 20px rgba(255,87,1,.4); transform: translateY(-1px); }
+.btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.btnback { background: transparent; border: 1.5px solid var(–iborder); color: var(–muted); border-radius: 50px; padding: 13px 26px; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: all .2s; white-space: nowrap; }
+.btnback:hover { border-color: var(–orange); color: var(–white); }
+.btnrow { display: flex; gap: 12px; align-items: center; }
+.btnrow .btn { flex: 1; }
 
 /* ALERT */
-.alert { border-radius: var(–radius); padding: 12px 16px; font-size: 13px; margin-bottom: 20px; display: none; }
-.alert.error { background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.3); color: #fca5a5; }
+.err { display: none; background: rgba(220,38,38,.1); border: 1px solid rgba(220,38,38,.3); color: #fca5a5; border-radius: var(–r); padding: 11px 14px; font-size: 13px; margin-bottom: 16px; }
 
 /* RIEPILOGO */
-.riepilogo-card { background: var(–card-bg); border: 1px solid var(–border); border-radius: var(–radius-lg); padding: 20px; margin-bottom: 24px; }
-.riepilogo-card h3 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(–orange); margin-bottom: 12px; }
-.riepilogo-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
-.riepilogo-row:last-child { border-bottom: none; }
-.riepilogo-row .key { color: var(–muted); }
-.riepilogo-row .val { color: var(–white); font-weight: 500; }
+.rcard { background: rgba(255,255,255,.04); border: 1px solid var(–border); border-radius: var(–rl); padding: 18px; margin-bottom: 20px; }
+.rcard h3 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(–orange); margin-bottom: 10px; }
+.rrow { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: 13px; }
+.rrow:last-child { border: none; }
+.rk { color: var(–muted); }
+.rv { color: var(–white); font-weight: 500; }
 
 /* SUCCESS */
-.success-panel { text-align: center; padding: 48px 24px; }
-.success-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,87,1,0.12); border: 2px solid var(–orange); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 32px; }
-.success-panel h2 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 32px; text-transform: uppercase; margin-bottom: 12px; }
-.success-panel p { color: var(–muted); font-size: 15px; line-height: 1.6; }
+.succ { text-align: center; padding: 52px 20px; }
+.succ-ico { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(–orange); background: rgba(255,87,1,.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; font-size: 30px; }
+.succ h2 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 34px; text-transform: uppercase; margin-bottom: 10px; }
+.succ p { color: var(–muted); font-size: 14px; line-height: 1.6; }
 
 /* SPINNER */
-.spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 8px; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.spin { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: sp .6s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes sp { to { transform: rotate(360deg); } }
 
-.no-dates { padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(–input-border); border-radius: var(–radius); color: var(–muted); font-size: 13px; text-align: center; }
+.nodate { padding: 14px; border: 1px solid var(–iborder); border-radius: var(–r); color: var(–muted); font-size: 13px; text-align: center; }
 
-@media (max-width: 480px) {
-.field-group { grid-template-columns: 1fr; }
-}
+@media (max-width: 460px) { .fg { grid-template-columns: 1fr; } }
 </style>
 
 </head>
 <body>
-<div class="container">
+<div class="wrap">
 
-  <div class="header">
-    <div class="logo-line">
-      <div class="logo-accent"></div>
-      <span class="logo-text">Athlon Club Roma</span>
-      <div class="logo-accent"></div>
+  <div class="hdr">
+    <div class="hdr-logo">
+      <div class="hdr-bar"></div>
+      <span class="hdr-brand">Athlon Club Roma</span>
+      <div class="hdr-bar"></div>
     </div>
-    <h1>Prenota la <span>Prova</span></h1>
-    <p>Completa il modulo per prenotare una sessione di prova per il tuo atleta.<br>Solo date future disponibili.</p>
+    <h1>Prenota la <em>Prova</em></h1>
+    <p>Compila il modulo per prenotare una sessione di prova.<br>Vengono mostrate solo le date future disponibili.</p>
   </div>
 
-  <div class="steps" id="stepsBar">
-    <div class="step-dot active" id="s1">1</div>
-    <div class="step-line" id="l1"></div>
-    <div class="step-dot" id="s2">2</div>
-    <div class="step-line" id="l2"></div>
-    <div class="step-dot" id="s3">3</div>
-    <div class="step-line" id="l3"></div>
-    <div class="step-dot" id="s4">4</div>
+  <div class="steps" id="steps">
+    <div class="sdot on" id="s1">1</div>
+    <div class="sline" id="l1"></div>
+    <div class="sdot" id="s2">2</div>
+    <div class="sline" id="l2"></div>
+    <div class="sdot" id="s3">3</div>
+    <div class="sline" id="l3"></div>
+    <div class="sdot" id="s4">4</div>
   </div>
 
-  <!-- PAGE 1 -->
+  <!-- P1 -->
 
-  <div class="page active" id="page1">
-    <div class="section">
-      <div class="section-label">Seleziona lo Sport</div>
-      <div class="sport-selector" id="sportSelector">
-        <button class="sport-btn" data-sport="nuoto">
-          <span class="icon">🏊</span>
-          <span class="label">Nuoto</span>
+  <div class="pg on" id="p1">
+    <div class="sec">
+      <div class="sec-lbl">Sport</div>
+      <div class="sport-grid" id="sportGrid">
+        <button class="sbtn" data-sport="nuoto">
+          <span class="ico">🏊</span>
+          <span class="lbl">Nuoto</span>
           <span class="sub">Agonismo &amp; Propaganda</span>
         </button>
-        <button class="sport-btn" data-sport="pallanuoto">
-          <span class="icon">🤽</span>
-          <span class="label">Pallanuoto</span>
+        <button class="sbtn" data-sport="pallanuoto">
+          <span class="ico">🤽</span>
+          <span class="lbl">Pallanuoto</span>
           <span class="sub">Under 14 &amp; Acquagol</span>
         </button>
       </div>
     </div>
-    <div class="section" id="catSection" style="display:none">
-      <div class="section-label">Categoria Atleta</div>
-      <div class="cat-options" id="catOptions"></div>
+    <div class="sec" id="secCat" style="display:none">
+      <div class="sec-lbl">Categoria</div>
+      <div class="cat-list" id="catList"></div>
     </div>
-    <div class="section" id="dateSection" style="display:none">
-      <div class="section-label">Scegli la Data</div>
+    <div class="sec" id="secDate" style="display:none">
+      <div class="sec-lbl">Data</div>
       <div class="date-grid" id="dateGrid"></div>
     </div>
-    <div class="section" id="orarioSection" style="display:none">
-      <div class="section-label">Orario</div>
-      <div class="orario-options" id="orarioOptions"></div>
+    <div class="sec" id="secOra" style="display:none">
+      <div class="sec-lbl">Orario</div>
+      <div class="ora-row" id="oraRow"></div>
     </div>
-    <div class="alert error" id="alert1"></div>
-    <button class="btn-submit" id="btnP1">Continua &rarr;</button>
+    <div class="err" id="e1"></div>
+    <button class="btn" id="next1">Continua &rarr;</button>
   </div>
 
-  <!-- PAGE 2 -->
+  <!-- P2 -->
 
-  <div class="page" id="page2">
-    <div class="section">
-      <div class="section-label">Dati Atleta</div>
-      <div class="field-group">
-        <div class="field"><label>Nome *</label><input type="text" id="atleta_nome" placeholder="Marco" autocomplete="off"></div>
-        <div class="field"><label>Cognome *</label><input type="text" id="atleta_cognome" placeholder="Rossi" autocomplete="off"></div>
+  <div class="pg" id="p2">
+    <div class="sec">
+      <div class="sec-lbl">Dati Atleta</div>
+      <div class="fg">
+        <div class="fld"><label>Nome *</label><input type="text" id="a_nome" placeholder="Marco"></div>
+        <div class="fld"><label>Cognome *</label><input type="text" id="a_cog" placeholder="Rossi"></div>
       </div>
-      <div class="field-group" style="margin-top:12px">
-        <div class="field"><label>Data di Nascita *</label><input type="date" id="atleta_dob"></div>
+      <div class="fg mt">
+        <div class="fld"><label>Data di Nascita *</label><input type="date" id="a_dob"></div>
       </div>
-      <div class="field-group full" style="margin-top:12px">
-        <div class="field">
-          <label>Livello natatorio ed esperienza *</label>
-          <textarea id="atleta_note" placeholder="Es: sa nuotare autonomamente, ha fatto corsi ma mai agonismo..."></textarea>
-        </div>
+      <div class="fg full mt">
+        <div class="fld"><label>Livello natatorio ed esperienza *</label><textarea id="a_note" placeholder="Es: sa nuotare autonomamente, mai fatto agonismo..."></textarea></div>
       </div>
     </div>
-    <div class="alert error" id="alert2"></div>
-    <div class="btn-row">
-      <button class="btn-back" id="backP2">&#8592; Indietro</button>
-      <button class="btn-submit" id="btnP2">Continua &rarr;</button>
+    <div class="err" id="e2"></div>
+    <div class="btnrow">
+      <button class="btnback" id="back2">&#8592; Indietro</button>
+      <button class="btn" id="next2">Continua &rarr;</button>
     </div>
   </div>
 
-  <!-- PAGE 3 -->
+  <!-- P3 -->
 
-  <div class="page" id="page3">
-    <div class="section">
-      <div class="section-label">Dati Genitore / Tutore</div>
-      <div class="field-group">
-        <div class="field"><label>Nome *</label><input type="text" id="gen_nome" placeholder="Luca" autocomplete="off"></div>
-        <div class="field"><label>Cognome *</label><input type="text" id="gen_cognome" placeholder="Rossi" autocomplete="off"></div>
+  <div class="pg" id="p3">
+    <div class="sec">
+      <div class="sec-lbl">Dati Genitore / Tutore</div>
+      <div class="fg">
+        <div class="fld"><label>Nome *</label><input type="text" id="g_nome" placeholder="Luca"></div>
+        <div class="fld"><label>Cognome *</label><input type="text" id="g_cog" placeholder="Rossi"></div>
       </div>
-      <div class="field-group" style="margin-top:12px">
-        <div class="field"><label>Data di Nascita *</label><input type="date" id="gen_dob"></div>
-        <div class="field"><label>Cellulare *</label><input type="tel" id="gen_cel" placeholder="+39 333 1234567"></div>
+      <div class="fg mt">
+        <div class="fld"><label>Data di Nascita *</label><input type="date" id="g_dob"></div>
+        <div class="fld"><label>Cellulare *</label><input type="tel" id="g_cel" placeholder="+39 333 1234567"></div>
       </div>
-      <div class="field-group full" style="margin-top:12px">
-        <div class="field"><label>Email *</label><input type="email" id="gen_email" placeholder="genitore@email.com"></div>
+      <div class="fg full mt">
+        <div class="fld"><label>Email *</label><input type="email" id="g_email" placeholder="genitore@email.com"></div>
       </div>
     </div>
-    <div class="alert error" id="alert3"></div>
-    <div class="btn-row">
-      <button class="btn-back" id="backP3">&#8592; Indietro</button>
-      <button class="btn-submit" id="btnP3">Continua &rarr;</button>
+    <div class="err" id="e3"></div>
+    <div class="btnrow">
+      <button class="btnback" id="back3">&#8592; Indietro</button>
+      <button class="btn" id="next3">Continua &rarr;</button>
     </div>
   </div>
 
-  <!-- PAGE 4 -->
+  <!-- P4 -->
 
-  <div class="page" id="page4">
-    <div class="section">
-      <div class="section-label">Riepilogo Prenotazione</div>
-      <div class="riepilogo-card" id="riepilogoCard"></div>
+  <div class="pg" id="p4">
+    <div class="sec">
+      <div class="sec-lbl">Riepilogo</div>
+      <div class="rcard" id="recap"></div>
     </div>
-    <div class="alert error" id="alert4"></div>
-    <div class="btn-row">
-      <button class="btn-back" id="backP4">&#8592; Modifica</button>
-      <button class="btn-submit" id="btnSend">Conferma Prenotazione</button>
+    <div class="err" id="e4"></div>
+    <div class="btnrow">
+      <button class="btnback" id="back4">&#8592; Modifica</button>
+      <button class="btn" id="send">Conferma Prenotazione</button>
     </div>
   </div>
 
   <!-- SUCCESS -->
 
-  <div class="page" id="pageSuccess">
-    <div class="success-panel">
-      <div class="success-icon">&#10003;</div>
-      <h2>Prenotazione <span style="color:var(--orange)">Inviata!</span></h2>
-      <p>La tua richiesta è stata ricevuta.<br>Ti contatteremo al cellulare indicato per confermare la prenotazione.</p>
+  <div class="pg" id="pOk">
+    <div class="succ">
+      <div class="succ-ico">&#10003;</div>
+      <h2>Prenotazione <em style="color:var(--orange);font-style:normal">Inviata!</em></h2>
+      <p>Richiesta ricevuta con successo.<br>Ti contatteremo al cellulare per confermare.</p>
       <br>
       <p style="font-size:12px;color:var(--muted)">Athlon Club Roma &middot; Via Ugo Ojetti 134 &middot; Roma</p>
     </div>
   </div>
 
 </div>
+
 <script>
-(function() {
-  'use strict';
+document.addEventListener('DOMContentLoaded', function() {
 
-// ── STATE ──────────────────────────────────────────────
-var state = { sport: null, categoria: null, data: null, orario: null };
-var dateOraMap = {};
+  var ST = { sport: null, cat: null, data: null, ora: null };
+  var ORA_MAP = {};
 
-// ── DATE HELPERS ───────────────────────────────────────
-var OGGI = new Date(); OGGI.setHours(0,0,0,0);
-var MESI = [‘Gen’,‘Feb’,‘Mar’,‘Apr’,‘Mag’,‘Giu’,‘Lug’,‘Ago’,‘Set’,‘Ott’,‘Nov’,‘Dic’];
-var GG   = [‘Dom’,‘Lun’,‘Mar’,‘Mer’,‘Gio’,‘Ven’,‘Sab’];
+  var MESI = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+  var GG   = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
 
-function pad(n){ return String(n).padStart(2,‘0’); }
-function fmt(d){ return d.getFullYear()+’-’+pad(d.getMonth()+1)+’-’+pad(d.getDate()); }
-function isFuture(d){ var x=new Date(d); x.setHours(0,0,0,0); return x>OGGI; }
+  var OGGI = new Date();
+  OGGI.setHours(0,0,0,0);
 
-function dateRange(from, to){
-var list=[], cur=new Date(from), end=new Date(to);
-cur.setHours(0,0,0,0);
-while(cur<=end){ if(isFuture(cur)) list.push(new Date(cur)); cur.setDate(cur.getDate()+1); }
-return list;
-}
+  function pad(n) { return ('0'+n).slice(-2); }
+  function fmt(d) { return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function future(d) { var x=new Date(d); x.setHours(0,0,0,0); return x>OGGI; }
 
-function isExcluded(d, ranges){
-var s=fmt(d);
-return ranges.some(function(r){ return s>=r[0]&&s<=r[1]; });
-}
+  function range(a, b) {
+    var out=[], c=new Date(a); c.setHours(0,0,0,0);
+    var e=new Date(b);
+    while(c<=e){ if(future(c)) out.push(new Date(c)); c.setDate(c.getDate()+1); }
+    return out;
+  }
 
-function getDates(sport, cat){
-var m1=new Date(‘2026-05-02’), m2=new Date(‘2026-05-31’);
-var j1=new Date(‘2026-06-01’), j2=new Date(‘2026-06-30’);
-var exMay=[[‘2026-05-11’,‘2026-05-17’]];
-var exJun=[[‘2026-06-02’,‘2026-06-02’],[‘2026-06-29’,‘2026-06-29’]];
-var res=[];
+  function excl(d, rr) {
+    var s=fmt(d);
+    for(var i=0;i<rr.length;i++){ if(s>=rr[i][0]&&s<=rr[i][1]) return true; }
+    return false;
+  }
 
-```
-if(sport==='nuoto'){
-  if(cat==='propaganda'){
-    dateRange(m1,m2).forEach(function(d){
-      if([1,4,6].indexOf(d.getDay())>=0 && !isExcluded(d,exMay)) res.push({d:d,ora:['17:30']});
-    });
-    dateRange(j1,j2).forEach(function(d){
-      if([1,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
-    });
-  } else if(cat==='agonismo'){
-    dateRange(m1,m2).forEach(function(d){
-      if([1,2,4,5].indexOf(d.getDay())>=0 && !isExcluded(d,exMay)) res.push({d:d,ora:['15:00']});
-    });
-    dateRange(j1,j2).forEach(function(d){
-      if([1,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
+  function getDates(sport, cat) {
+    var m1=new Date('2026-05-02'), m2=new Date('2026-05-31');
+    var j1=new Date('2026-06-01'), j2=new Date('2026-06-30');
+    var xM=[['2026-05-11','2026-05-17']];
+    var xJ=[['2026-06-02','2026-06-02'],['2026-06-29','2026-06-29']];
+    var r=[];
+
+    function add(list, days, ex, ore) {
+      list.forEach(function(d){
+        if(days.indexOf(d.getDay())>=0 && !excl(d,ex)) r.push({d:d, ora:ore});
+      });
+    }
+
+    if(sport==='nuoto') {
+      if(cat==='propaganda') {
+        add(range(m1,m2),[1,4,6],xM,['17:30']);
+        add(range(j1,j2),[1,4],xJ,['16:30','17:20']);
+      } else {
+        add(range(m1,m2),[1,2,4,5],xM,['15:00']);
+        add(range(j1,j2),[1,4],xJ,['16:30','17:20']);
+      }
+    } else {
+      if(cat==='u14') {
+        add(range(m1,m2),[2,5],[],['14:30']);
+        add(range(j1,j2),[2,4],xJ,['16:30','17:20']);
+      } else {
+        add(range(m1,m2),[2,5],xM,['16:50']);
+        add(range(j1,j2),[2,4],xJ,['16:30','17:20']);
+      }
+    }
+    return r;
+  }
+
+  // ── PAGES ──
+  function goPage(n) {
+    document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
+    var pg = document.getElementById('p'+n);
+    if(pg) pg.classList.add('on');
+    for(var i=1;i<=4;i++){
+      var d=document.getElementById('s'+i), l=document.getElementById('l'+i);
+      d.classList.remove('on','done');
+      d.textContent=i;
+      if(i<n){ d.classList.add('done'); d.textContent='✓'; }
+      else if(i===n){ d.classList.add('on'); }
+      if(l) l.classList.toggle('done', i<n);
+    }
+    window.scrollTo(0,0);
+  }
+
+  function alert(id, msg) {
+    var el=document.getElementById(id);
+    el.textContent=msg; el.style.display='block';
+    setTimeout(function(){ el.style.display='none'; },4000);
+  }
+
+  // ── RENDER CAT ──
+  var CATS = {
+    nuoto:      [{id:'propaganda',n:'Propaganda',a:'Nati 2014–2018',b:'Lun/Gio/Sab'},
+                 {id:'agonismo',  n:'Agonismo',  a:'Nati 2008–2015',b:'Lun/Mar/Gio/Ven'}],
+    pallanuoto: [{id:'u14',       n:'Under 14',  a:'Nati 2013–2015',b:'Mar/Ven'},
+                 {id:'acquagol',  n:'Acquagol',  a:'Nati 2016–2018',b:'Mar/Ven'}]
+  };
+
+  function renderCat(sport) {
+    var el=document.getElementById('catList');
+    el.innerHTML='';
+    CATS[sport].forEach(function(c){
+      var b=document.createElement('button');
+      b.className='cbtn'; b.dataset.cat=c.id;
+      b.innerHTML='<div><div class="cn">'+c.n+'</div><div class="ca">'+c.a+'</div></div><div class="cb">'+c.b+'</div>';
+      el.appendChild(b);
     });
   }
-} else {
-  if(cat==='u14'){
-    dateRange(m1,m2).forEach(function(d){
-      if([2,5].indexOf(d.getDay())>=0) res.push({d:d,ora:['14:30']});
-    });
-    dateRange(j1,j2).forEach(function(d){
-      if([2,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
-    });
-  } else if(cat==='acquagol'){
-    dateRange(m1,m2).forEach(function(d){
-      if([2,5].indexOf(d.getDay())>=0 && !isExcluded(d,exMay)) res.push({d:d,ora:['16:50']});
-    });
-    dateRange(j1,j2).forEach(function(d){
-      if([2,4].indexOf(d.getDay())>=0 && !isExcluded(d,exJun)) res.push({d:d,ora:['16:30','17:20']});
+
+  function renderDate() {
+    var grid=document.getElementById('dateGrid');
+    var list=getDates(ST.sport, ST.cat);
+    ORA_MAP={};
+    grid.innerHTML='';
+    if(!list.length){ grid.innerHTML='<div class="nodate">Nessuna data disponibile.</div>'; return; }
+    list.forEach(function(it){
+      var k=fmt(it.d);
+      ORA_MAP[k]=it.ora;
+      var b=document.createElement('button');
+      b.className='dbtn'; b.dataset.k=k;
+      b.innerHTML='<div class="dd">'+it.d.getDate()+'</div>'
+                 +'<div class="dm">'+MESI[it.d.getMonth()]+'</div>'
+                 +'<div class="dw">'+GG[it.d.getDay()]+'</div>';
+      grid.appendChild(b);
     });
   }
-}
-return res;
-```
 
-}
-
-// ── PAGES ──────────────────────────────────────────────
-function showPage(n){
-document.querySelectorAll(’.page’).forEach(function(p){ p.classList.remove(‘active’); });
-var pg = document.getElementById(‘page’+n);
-if(pg) pg.classList.add(‘active’);
-for(var i=1;i<=4;i++){
-var dot=document.getElementById(‘s’+i), line=document.getElementById(‘l’+i);
-if(!dot) continue;
-dot.classList.remove(‘active’,‘done’);
-if(i<n){ dot.classList.add(‘done’); dot.textContent=‘✓’; }
-else if(i===n){ dot.classList.add(‘active’); dot.textContent=i; }
-else { dot.textContent=i; }
-if(line) line.classList.toggle(‘done’, i<n);
-}
-window.scrollTo({top:0,behavior:‘smooth’});
-}
-
-function showAlert(id, msg){
-var el=document.getElementById(id);
-if(!el) return;
-el.textContent=msg; el.style.display=‘block’;
-setTimeout(function(){ el.style.display=‘none’; }, 4000);
-}
-
-// ── RENDER CATEGORIE ───────────────────────────────────
-function renderCategorie(sport){
-var cats = sport===‘nuoto’
-? [{id:‘propaganda’,nome:‘Propaganda’,anni:‘Nati 2014–2018’,badge:‘Lun/Gio/Sab’},
-{id:‘agonismo’,nome:‘Agonismo’,anni:‘Nati 2008–2015’,badge:‘Lun/Mar/Gio/Ven’}]
-: [{id:‘u14’,nome:‘Under 14’,anni:‘Nati 2013–2015’,badge:‘Mar/Ven’},
-{id:‘acquagol’,nome:‘Acquagol’,anni:‘Nati 2016–2018’,badge:‘Mar/Ven’}];
-var el=document.getElementById(‘catOptions’);
-el.innerHTML=’’;
-cats.forEach(function(c){
-var btn=document.createElement(‘button’);
-btn.className=‘cat-btn’;
-btn.dataset.cat=c.id;
-btn.innerHTML=’<div><div class="cat-name">’+c.nome+’</div><div class="cat-anni">’+c.anni+’</div></div>’
-+’<div class="cat-badge">’+c.badge+’</div>’;
-el.appendChild(btn);
-});
-}
-
-// ── RENDER DATE ────────────────────────────────────────
-function renderDate(){
-var grid=document.getElementById(‘dateGrid’);
-var list=getDates(state.sport, state.categoria);
-dateOraMap={};
-grid.innerHTML=’’;
-if(!list.length){
-grid.innerHTML=’<div class="no-dates">Nessuna data disponibile.</div>’;
-return;
-}
-list.forEach(function(item){
-var key=fmt(item.d);
-dateOraMap[key]=item.ora;
-var btn=document.createElement(‘button’);
-btn.className=‘date-btn’;
-btn.dataset.key=key;
-btn.innerHTML=’<div class="d-day">’+item.d.getDate()+’</div>’
-+’<div class="d-month">’+MESI[item.d.getMonth()]+’</div>’
-+’<div class="d-wd">’+GG[item.d.getDay()]+’</div>’;
-grid.appendChild(btn);
-});
-}
-
-// ── RENDER ORARI ───────────────────────────────────────
-function renderOrari(orari){
-var el=document.getElementById(‘orarioOptions’);
-el.innerHTML=’’;
-state.orario=null;
-orari.forEach(function(o){
-var btn=document.createElement(‘button’);
-btn.className=‘ora-btn’;
-btn.dataset.ora=o;
-btn.textContent=o;
-el.appendChild(btn);
-});
-if(orari.length===1){
-state.orario=orari[0];
-el.querySelector(’.ora-btn’).classList.add(‘active’);
-var lbl=document.createElement(‘span’);
-lbl.className=‘ora-fixed-label’;
-lbl.textContent=‘orario fisso’;
-el.appendChild(lbl);
-}
-}
-
-// ── EVENT DELEGATION ───────────────────────────────────
-document.getElementById(‘sportSelector’).addEventListener(‘click’, function(e){
-var btn=e.target.closest(’.sport-btn’);
-if(!btn) return;
-state.sport=btn.dataset.sport;
-state.categoria=null; state.data=null; state.orario=null;
-document.querySelectorAll(’.sport-btn’).forEach(function(b){ b.classList.remove(‘active’); });
-btn.classList.add(‘active’);
-renderCategorie(state.sport);
-document.getElementById(‘catSection’).style.display=‘block’;
-document.getElementById(‘dateSection’).style.display=‘none’;
-document.getElementById(‘orarioSection’).style.display=‘none’;
-});
-
-document.getElementById(‘catOptions’).addEventListener(‘click’, function(e){
-var btn=e.target.closest(’.cat-btn’);
-if(!btn) return;
-state.categoria=btn.dataset.cat;
-state.data=null; state.orario=null;
-document.querySelectorAll(’.cat-btn’).forEach(function(b){ b.classList.remove(‘active’); });
-btn.classList.add(‘active’);
-renderDate();
-document.getElementById(‘dateSection’).style.display=‘block’;
-document.getElementById(‘orarioSection’).style.display=‘none’;
-});
-
-document.getElementById(‘dateGrid’).addEventListener(‘click’, function(e){
-var btn=e.target.closest(’.date-btn’);
-if(!btn) return;
-var key=btn.dataset.key;
-var orari=dateOraMap[key];
-if(!orari) return;
-state.data=key; state.orario=null;
-document.querySelectorAll(’.date-btn’).forEach(function(b){ b.classList.remove(‘active’); });
-btn.classList.add(‘active’);
-renderOrari(orari);
-document.getElementById(‘orarioSection’).style.display=‘block’;
-});
-
-document.getElementById(‘orarioOptions’).addEventListener(‘click’, function(e){
-var btn=e.target.closest(’.ora-btn’);
-if(!btn) return;
-state.orario=btn.dataset.ora;
-document.querySelectorAll(’.ora-btn’).forEach(function(b){ b.classList.remove(‘active’); });
-btn.classList.add(‘active’);
-});
-
-// ── NAVIGAZIONE ────────────────────────────────────────
-document.getElementById(‘btnP1’).addEventListener(‘click’, function(){
-if(!state.sport)     return showAlert(‘alert1’,‘Seleziona uno sport.’);
-if(!state.categoria) return showAlert(‘alert1’,‘Seleziona una categoria.’);
-if(!state.data)      return showAlert(‘alert1’,‘Seleziona una data.’);
-if(!state.orario)    return showAlert(‘alert1’,‘Seleziona un orario.’);
-showPage(2);
-});
-
-document.getElementById(‘backP2’).addEventListener(‘click’, function(){ showPage(1); });
-document.getElementById(‘btnP2’).addEventListener(‘click’, function(){
-var n=document.getElementById(‘atleta_nome’).value.trim();
-var c=document.getElementById(‘atleta_cognome’).value.trim();
-var d=document.getElementById(‘atleta_dob’).value;
-var note=document.getElementById(‘atleta_note’).value.trim();
-if(!n||!c) return showAlert(‘alert2’,‘Inserisci nome e cognome dell'atleta.’);
-if(!d)     return showAlert(‘alert2’,‘Inserisci la data di nascita dell'atleta.’);
-if(!note)  return showAlert(‘alert2’,‘Descrivi il livello natatorio dell'atleta.’);
-showPage(3);
-});
-
-document.getElementById(‘backP3’).addEventListener(‘click’, function(){ showPage(2); });
-document.getElementById(‘btnP3’).addEventListener(‘click’, function(){
-var n=document.getElementById(‘gen_nome’).value.trim();
-var c=document.getElementById(‘gen_cognome’).value.trim();
-var d=document.getElementById(‘gen_dob’).value;
-var cel=document.getElementById(‘gen_cel’).value.trim();
-var email=document.getElementById(‘gen_email’).value.trim();
-if(!n||!c)           return showAlert(‘alert3’,‘Inserisci nome e cognome del genitore.’);
-if(!d)               return showAlert(‘alert3’,‘Inserisci la data di nascita del genitore.’);
-if(!cel)             return showAlert(‘alert3’,‘Inserisci il numero di cellulare.’);
-if(!email||email.indexOf(’@’)<0) return showAlert(‘alert3’,‘Inserisci un'email valida.’);
-
-```
-var labels={nuoto:'Nuoto',pallanuoto:'Pallanuoto',propaganda:'Propaganda',agonismo:'Agonismo',u14:'Under 14',acquagol:'Acquagol'};
-var parts=state.data.split('-');
-var dateIt=parts[2]+'/'+parts[1]+'/'+parts[0];
-document.getElementById('riepilogoCard').innerHTML=
-  '<h3>Riepilogo</h3>'
-  +'<div class="riepilogo-row"><span class="key">Sport</span><span class="val">'+labels[state.sport]+'</span></div>'
-  +'<div class="riepilogo-row"><span class="key">Categoria</span><span class="val">'+labels[state.categoria]+'</span></div>'
-  +'<div class="riepilogo-row"><span class="key">Data</span><span class="val">'+dateIt+'</span></div>'
-  +'<div class="riepilogo-row"><span class="key">Orario</span><span class="val">'+state.orario+'</span></div>'
-  +'<div class="riepilogo-row"><span class="key">Atleta</span><span class="val">'+document.getElementById('atleta_nome').value+' '+document.getElementById('atleta_cognome').value+'</span></div>'
-  +'<div class="riepilogo-row"><span class="key">Genitore</span><span class="val">'+n+' '+c+'</span></div>'
-  +'<div class="riepilogo-row"><span class="key">Cellulare</span><span class="val">'+cel+'</span></div>'
-  +'<div class="riepilogo-row"><span class="key">Email</span><span class="val">'+email+'</span></div>';
-showPage(4);
-```
-
-});
-
-document.getElementById(‘backP4’).addEventListener(‘click’, function(){ showPage(3); });
-document.getElementById(‘btnSend’).addEventListener(‘click’, function(){
-var btn=document.getElementById(‘btnSend’);
-btn.disabled=true;
-btn.innerHTML=’<span class="spinner"></span>Invio in corso…’;
-
-```
-var payload={
-  sport: state.sport,
-  categoria: state.categoria,
-  data_prova: state.data,
-  orario: state.orario,
-  atleta:{
-    nome: document.getElementById('atleta_nome').value.trim(),
-    cognome: document.getElementById('atleta_cognome').value.trim(),
-    data_nascita: document.getElementById('atleta_dob').value,
-    note_livello: document.getElementById('atleta_note').value.trim()
-  },
-  genitore:{
-    nome: document.getElementById('gen_nome').value.trim(),
-    cognome: document.getElementById('gen_cognome').value.trim(),
-    data_nascita: document.getElementById('gen_dob').value,
-    cellulare: document.getElementById('gen_cel').value.trim(),
-    email: document.getElementById('gen_email').value.trim()
-  },
-  timestamp: new Date().toISOString(),
-  source: 'form-prove-athlon'
-};
-
-fetch('https://automazione.n8ndevelop.it/webhook/prenotazione-prove-athlon', {
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify(payload)
-})
-.then(function(r){
-  if(r.ok || r.status===200 || r.status===201 || r.status===202){
-    document.getElementById('stepsBar').style.display='none';
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-    document.getElementById('pageSuccess').classList.add('active');
-  } else {
-    throw new Error('HTTP '+r.status);
+  function renderOra(ore) {
+    var el=document.getElementById('oraRow');
+    el.innerHTML=''; ST.ora=null;
+    ore.forEach(function(o){
+      var b=document.createElement('button');
+      b.className='obra'; b.dataset.o=o; b.textContent=o;
+      el.appendChild(b);
+    });
+    if(ore.length===1){
+      ST.ora=ore[0];
+      el.querySelector('.obra').classList.add('on');
+      var sp=document.createElement('span');
+      sp.className='ora-fixed'; sp.textContent='orario fisso';
+      el.appendChild(sp);
+    }
   }
-})
-.catch(function(){
-  btn.disabled=false;
-  btn.innerHTML='Conferma Prenotazione';
-  showAlert('alert4','Errore nell\'invio. Riprova o contatta lo staff.');
-});
-```
 
-});
+  // ── EVENTS ──
+  document.getElementById('sportGrid').addEventListener('click', function(e){
+    var b=e.target.closest('.sbtn'); if(!b) return;
+    ST.sport=b.dataset.sport; ST.cat=null; ST.data=null; ST.ora=null;
+    document.querySelectorAll('.sbtn').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    renderCat(ST.sport);
+    document.getElementById('secCat').style.display='block';
+    document.getElementById('secDate').style.display='none';
+    document.getElementById('secOra').style.display='none';
+  });
 
-})();
+  document.getElementById('catList').addEventListener('click', function(e){
+    var b=e.target.closest('.cbtn'); if(!b) return;
+    ST.cat=b.dataset.cat; ST.data=null; ST.ora=null;
+    document.querySelectorAll('.cbtn').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    renderDate();
+    document.getElementById('secDate').style.display='block';
+    document.getElementById('secOra').style.display='none';
+  });
+
+  document.getElementById('dateGrid').addEventListener('click', function(e){
+    var b=e.target.closest('.dbtn'); if(!b) return;
+    var k=b.dataset.k; var ore=ORA_MAP[k]; if(!ore) return;
+    ST.data=k; ST.ora=null;
+    document.querySelectorAll('.dbtn').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    renderOra(ore);
+    document.getElementById('secOra').style.display='block';
+  });
+
+  document.getElementById('oraRow').addEventListener('click', function(e){
+    var b=e.target.closest('.obra'); if(!b) return;
+    ST.ora=b.dataset.o;
+    document.querySelectorAll('.obra').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+  });
+
+  // ── NAV ──
+  document.getElementById('next1').addEventListener('click', function(){
+    if(!ST.sport)  return alert('e1','Seleziona uno sport.');
+    if(!ST.cat)    return alert('e1','Seleziona una categoria.');
+    if(!ST.data)   return alert('e1','Seleziona una data.');
+    if(!ST.ora)    return alert('e1','Seleziona un orario.');
+    goPage(2);
+  });
+
+  document.getElementById('back2').addEventListener('click', function(){ goPage(1); });
+  document.getElementById('next2').addEventListener('click', function(){
+    if(!document.getElementById('a_nome').value.trim() || !document.getElementById('a_cog').value.trim())
+      return alert('e2','Inserisci nome e cognome dell\'atleta.');
+    if(!document.getElementById('a_dob').value)
+      return alert('e2','Inserisci la data di nascita dell\'atleta.');
+    if(!document.getElementById('a_note').value.trim())
+      return alert('e2','Descrivi il livello natatorio dell\'atleta.');
+    goPage(3);
+  });
+
+  document.getElementById('back3').addEventListener('click', function(){ goPage(2); });
+  document.getElementById('next3').addEventListener('click', function(){
+    var gn=document.getElementById('g_nome').value.trim();
+    var gc=document.getElementById('g_cog').value.trim();
+    var gd=document.getElementById('g_dob').value;
+    var gcel=document.getElementById('g_cel').value.trim();
+    var gem=document.getElementById('g_email').value.trim();
+    if(!gn||!gc) return alert('e3','Inserisci nome e cognome del genitore.');
+    if(!gd)      return alert('e3','Inserisci la data di nascita del genitore.');
+    if(!gcel)    return alert('e3','Inserisci il cellulare.');
+    if(!gem||gem.indexOf('@')<0) return alert('e3','Inserisci un\'email valida.');
+
+    var L={nuoto:'Nuoto',pallanuoto:'Pallanuoto',propaganda:'Propaganda',agonismo:'Agonismo',u14:'Under 14',acquagol:'Acquagol'};
+    var dp=ST.data.split('-');
+    document.getElementById('recap').innerHTML=
+      '<h3>Riepilogo</h3>'
+      +'<div class="rrow"><span class="rk">Sport</span><span class="rv">'+L[ST.sport]+'</span></div>'
+      +'<div class="rrow"><span class="rk">Categoria</span><span class="rv">'+L[ST.cat]+'</span></div>'
+      +'<div class="rrow"><span class="rk">Data</span><span class="rv">'+dp[2]+'/'+dp[1]+'/'+dp[0]+'</span></div>'
+      +'<div class="rrow"><span class="rk">Orario</span><span class="rv">'+ST.ora+'</span></div>'
+      +'<div class="rrow"><span class="rk">Atleta</span><span class="rv">'+document.getElementById('a_nome').value+' '+document.getElementById('a_cog').value+'</span></div>'
+      +'<div class="rrow"><span class="rk">Genitore</span><span class="rv">'+gn+' '+gc+'</span></div>'
+      +'<div class="rrow"><span class="rk">Cellulare</span><span class="rv">'+gcel+'</span></div>'
+      +'<div class="rrow"><span class="rk">Email</span><span class="rv">'+gem+'</span></div>';
+    goPage(4);
+  });
+
+  document.getElementById('back4').addEventListener('click', function(){ goPage(3); });
+  document.getElementById('send').addEventListener('click', function(){
+    var btn=document.getElementById('send');
+    btn.disabled=true;
+    btn.innerHTML='<span class="spin"></span>Invio in corso...';
+    var payload={
+      sport:ST.sport, categoria:ST.cat, data_prova:ST.data, orario:ST.ora,
+      atleta:{ nome:document.getElementById('a_nome').value.trim(), cognome:document.getElementById('a_cog').value.trim(), data_nascita:document.getElementById('a_dob').value, note_livello:document.getElementById('a_note').value.trim() },
+      genitore:{ nome:document.getElementById('g_nome').value.trim(), cognome:document.getElementById('g_cog').value.trim(), data_nascita:document.getElementById('g_dob').value, cellulare:document.getElementById('g_cel').value.trim(), email:document.getElementById('g_email').value.trim() },
+      timestamp:new Date().toISOString(), source:'form-prove-athlon'
+    };
+    fetch('https://automazione.n8ndevelop.it/webhook/prenotazione-prove-athlon',{
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
+    }).then(function(r){
+      if(r.status>=200&&r.status<400){
+        document.getElementById('steps').style.display='none';
+        document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
+        document.getElementById('pOk').classList.add('on');
+      } else { throw new Error(r.status); }
+    }).catch(function(){
+      btn.disabled=false; btn.innerHTML='Conferma Prenotazione';
+      alert('e4','Errore nell\'invio. Riprova o contatta lo staff.');
+    });
+  });
+
+}); // DOMContentLoaded
 </script>
 
 </body>
