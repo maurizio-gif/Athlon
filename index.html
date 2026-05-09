@@ -8,117 +8,100 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --orange: #ff5701;
+  --o: #ff5701;
   --ink: #111318;
-  --white: #ffffff;
-  --muted: #888480;
-  --border: rgba(255,87,1,0.2);
-  --ibg: rgba(255,255,255,0.07);
-  --iborder: rgba(255,255,255,0.15);
-  --r: 10px;
-  --rl: 16px;
+  --w: #ffffff;
+  --mu: #888480;
 }
-
-/* ── RESET COMPLETO iOS Safari ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 button {
 -webkit-appearance: none !important;
 appearance: none !important;
 -webkit-tap-highlight-color: transparent;
-background: none;
+background-color: transparent;
 border: none;
 color: inherit;
 font-family: inherit;
 cursor: pointer;
-display: block;
 }
-
 input, textarea {
 -webkit-appearance: none !important;
 appearance: none !important;
--webkit-tap-highlight-color: transparent;
-background: none;
+background-color: transparent;
 border: none;
 color: inherit;
 font-family: inherit;
-font-size: inherit;
+-webkit-tap-highlight-color: transparent;
 }
 
 html, body {
 background-color: #111318;
-color: #ffffff;
+color: #fff;
 font-family: ‘DM Sans’, sans-serif;
 min-height: 100vh;
 -webkit-text-size-adjust: 100%;
 }
+.w { max-width: 640px; margin: 0 auto; padding: 0 18px 80px; }
 
-.wrap { max-width: 640px; margin: 0 auto; padding: 0 18px 80px; }
-
-/* ── HEADER ── */
+/* HEADER */
 .hdr { padding: 40px 0 28px; text-align: center; border-bottom: 1px solid rgba(255,87,1,0.2); margin-bottom: 32px; }
-.hdr-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; }
+.hdr-top { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; }
 .hdr-bar { width: 24px; height: 3px; background: #ff5701; border-radius: 2px; }
 .hdr-brand { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: #ff5701; }
-.hdr h1 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: clamp(34px,9vw,54px); text-transform: uppercase; line-height: 1; margin-bottom: 10px; color: #fff; }
+.hdr h1 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: clamp(34px,9vw,54px); text-transform: uppercase; line-height: 1; margin-bottom: 10px; }
 .hdr h1 em { color: #ff5701; font-style: normal; }
 .hdr p { font-size: 13px; color: #888480; line-height: 1.5; }
 
-/* ── STEPS ── */
+/* STEPS */
 .steps { display: flex; align-items: center; gap: 6px; margin-bottom: 32px; }
-.sdot {
+.sd {
 width: 30px; height: 30px; border-radius: 50%;
-border: 2px solid rgba(255,255,255,0.15);
+border: 2px solid rgba(255,255,255,0.18);
+background-color: transparent;
 display: flex; align-items: center; justify-content: center;
 font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 13px;
 color: #888480; flex-shrink: 0;
-background-color: transparent;
 }
-.sdot.on  { border-color: #ff5701; background-color: #ff5701; color: #fff; }
-.sdot.done { border-color: #ff5701; background-color: rgba(255,87,1,0.18); color: #ff5701; }
-.sline { flex: 1; height: 1px; background-color: rgba(255,255,255,0.12); }
-.sline.done { background-color: #ff5701; }
+.sd.on  { border-color: #ff5701 !important; background-color: #ff5701 !important; color: #fff !important; }
+.sd.done { border-color: #ff5701 !important; background-color: rgba(255,87,1,0.18) !important; color: #ff5701 !important; }
+.sl { flex: 1; height: 1px; background-color: rgba(255,255,255,0.12); }
+.sl.done { background-color: #ff5701; }
 
-/* ── PAGES ── */
+/* PAGES */
 .pg { display: none; }
 .pg.on { display: block; }
 
-/* ── SECTION LABEL ── */
+/* SECTION */
 .sec { margin-bottom: 28px; }
-.sec-lbl {
+.slbl {
 font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700;
 font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
 color: #ff5701; margin-bottom: 14px;
 display: flex; align-items: center; gap: 10px;
 }
-.sec-lbl::after { content: ‘’; flex: 1; height: 1px; background: rgba(255,87,1,0.2); }
+.slbl::after { content: ‘’; flex: 1; height: 1px; background: rgba(255,87,1,0.2); }
 
-/* ── SPORT BUTTONS ── */
-.sport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
+/* SPORT */
+.sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .sbtn {
 -webkit-appearance: none !important;
 appearance: none !important;
 background-color: rgba(255,255,255,0.05) !important;
 border: 1.5px solid rgba(255,255,255,0.15) !important;
 border-radius: 16px !important;
-padding: 20px 14px !important;
+padding: 22px 14px !important;
 text-align: center !important;
-color: #ffffff !important;
+color: #fff !important;
 width: 100%;
 }
-.sbtn.on {
-border-color: #ff5701 !important;
-background-color: rgba(255,87,1,0.1) !important;
-box-shadow: 0 0 20px rgba(255,87,1,0.2);
-}
+.sbtn.on { border-color: #ff5701 !important; background-color: rgba(255,87,1,0.1) !important; box-shadow: 0 0 20px rgba(255,87,1,0.15); }
 .sbtn .ico { font-size: 28px; display: block; margin-bottom: 8px; }
-.sbtn .lbl { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 18px; text-transform: uppercase; display: block; color: #ffffff; }
+.sbtn .lbl { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 18px; text-transform: uppercase; display: block; color: #fff; }
 .sbtn .sub { font-size: 11px; color: #888480; margin-top: 3px; display: block; }
 
-/* ── CAT BUTTONS ── */
-.cat-list { display: flex; flex-direction: column; gap: 8px; }
-
+/* CAT */
+.clist { display: flex; flex-direction: column; gap: 8px; }
 .cbtn {
 -webkit-appearance: none !important;
 appearance: none !important;
@@ -126,24 +109,38 @@ background-color: rgba(255,255,255,0.05) !important;
 border: 1.5px solid rgba(255,255,255,0.15) !important;
 border-radius: 10px !important;
 padding: 14px 16px !important;
-color: #ffffff !important;
+color: #fff !important;
 display: flex !important;
 align-items: center !important;
 justify-content: space-between !important;
 width: 100% !important;
 text-align: left !important;
 }
-.cbtn.on {
-border-color: #ff5701 !important;
-background-color: rgba(255,87,1,0.09) !important;
-}
+.cbtn.on { border-color: #ff5701 !important; background-color: rgba(255,87,1,0.09) !important; }
 .cbtn .cn { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; color: #fff; }
 .cbtn .ca { font-size: 12px; color: #888480; margin-top: 2px; }
 .cbtn .cb { font-size: 11px; background-color: rgba(255,87,1,0.18); color: #ff5701; padding: 3px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
 
-/* ── DATE BUTTONS ── */
-.date-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+/* REQUISITI BOX */
+.rqbox {
+background-color: rgba(255,87,1,0.06);
+border: 1px solid rgba(255,87,1,0.28);
+border-radius: 12px;
+padding: 16px 18px;
+margin-top: 12px;
+display: none;
+}
+.rqbox.vis { display: block; }
+.rqtitle { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #ff5701; margin-bottom: 10px; }
+.rqlvl { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 21px; color: #fff; margin-bottom: 8px; }
+.rqskills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.rqsk { background-color: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 4px 10px; font-size: 12px; color: #fff; font-weight: 500; }
+.rqdesc { font-size: 13px; color: #888480; line-height: 1.5; margin-bottom: 10px; }
+.rqcert { display: flex; align-items: flex-start; gap: 8px; background-color: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #888480; line-height: 1.4; }
+.rqcico { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 
+/* DATE */
+.dgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .dbtn {
 -webkit-appearance: none !important;
 appearance: none !important;
@@ -152,22 +149,17 @@ border: 1.5px solid rgba(255,255,255,0.15) !important;
 border-radius: 10px !important;
 padding: 14px 6px !important;
 text-align: center !important;
-color: #ffffff !important;
+color: #fff !important;
 width: 100% !important;
 }
-.dbtn.on {
-border-color: #ff5701 !important;
-background-color: rgba(255,87,1,0.12) !important;
-}
+.dbtn.on { border-color: #ff5701 !important; background-color: rgba(255,87,1,0.12) !important; }
 .dbtn .dd { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 26px; line-height: 1; color: #fff; }
 .dbtn .dm { font-size: 11px; color: #888480; text-transform: uppercase; letter-spacing: .06em; }
 .dbtn .dw { font-size: 10px; color: #888480; text-transform: uppercase; margin-top: 2px; }
-.dbtn.on .dd { color: #fff; }
 .dbtn.on .dm, .dbtn.on .dw { color: rgba(255,87,1,0.8); }
 
-/* ── ORA BUTTONS ── */
-.ora-row { display: flex; gap: 10px; flex-wrap: wrap; }
-
+/* ORA */
+.orow { display: flex; gap: 10px; flex-wrap: wrap; }
 .obra {
 -webkit-appearance: none !important;
 appearance: none !important;
@@ -175,20 +167,15 @@ background-color: rgba(255,255,255,0.05) !important;
 border: 1.5px solid rgba(255,255,255,0.15) !important;
 border-radius: 10px !important;
 padding: 12px 24px !important;
-color: #ffffff !important;
+color: #fff !important;
 font-family: ‘Barlow Condensed’, sans-serif !important;
 font-weight: 700 !important;
 font-size: 18px !important;
-letter-spacing: .05em !important;
 }
-.obra.on {
-border-color: #ff5701 !important;
-background-color: rgba(255,87,1,0.12) !important;
-color: #ff5701 !important;
-}
-.ora-fixed { font-size: 12px; color: #888480; align-self: center; }
+.obra.on { border-color: #ff5701 !important; background-color: rgba(255,87,1,0.12) !important; color: #ff5701 !important; }
+.ofix { font-size: 12px; color: #888480; align-self: center; }
 
-/* ── INPUT FIELDS ── */
+/* FIELDS */
 .fg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .fg.full { grid-template-columns: 1fr; }
 .fld { display: flex; flex-direction: column; gap: 6px; }
@@ -200,7 +187,7 @@ background-color: rgba(255,255,255,0.07) !important;
 border: 1.5px solid rgba(255,255,255,0.15) !important;
 border-radius: 10px !important;
 padding: 13px 14px !important;
-color: #ffffff !important;
+color: #fff !important;
 font-family: ‘DM Sans’, sans-serif !important;
 font-size: 16px !important;
 outline: none !important;
@@ -212,7 +199,7 @@ display: block;
 .fld textarea { resize: vertical; min-height: 90px; }
 .mt { margin-top: 12px; }
 
-/* ── CTA BUTTONS ── */
+/* BUTTONS */
 .btn {
 -webkit-appearance: none !important;
 appearance: none !important;
@@ -229,8 +216,7 @@ letter-spacing: .12em !important;
 text-transform: uppercase !important;
 }
 .btn:disabled { opacity: .6; }
-
-.btnback {
+.bbk {
 -webkit-appearance: none !important;
 appearance: none !important;
 background-color: transparent !important;
@@ -245,85 +231,40 @@ letter-spacing: .1em !important;
 text-transform: uppercase !important;
 white-space: nowrap;
 }
+.brow { display: flex; gap: 12px; align-items: center; }
+.brow .btn { flex: 1; }
 
-.btnrow { display: flex; gap: 12px; align-items: center; }
-.btnrow .btn { flex: 1; }
-
-/* ── ALERT ── */
+/* MISC */
 .err { display: none; background-color: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.35); color: #fca5a5; border-radius: 8px; padding: 11px 14px; font-size: 13px; margin-bottom: 16px; }
+.nodate { padding: 14px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #888480; font-size: 13px; text-align: center; }
 
-/* ── RIEPILOGO ── */
+/* RECAP */
 .rcard { background-color: rgba(255,255,255,0.04); border: 1px solid rgba(255,87,1,0.2); border-radius: 16px; padding: 18px; margin-bottom: 20px; }
 .rcard h3 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: #ff5701; margin-bottom: 10px; }
-.rrow { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; gap: 12px; }
+.rrow { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
 .rrow:last-child { border: none; }
 .rk { color: #888480; flex-shrink: 0; }
 .rv { color: #fff; font-weight: 500; text-align: right; }
 
-/* ── SUCCESS ── */
+/* SUCCESS */
 .succ { text-align: center; padding: 52px 20px; }
 .succ-ico { width: 70px; height: 70px; border-radius: 50%; border: 2px solid #ff5701; background-color: rgba(255,87,1,0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; font-size: 30px; }
-.succ h2 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 34px; text-transform: uppercase; margin-bottom: 10px; color: #fff; }
+.succ h2 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 900; font-size: 34px; text-transform: uppercase; margin-bottom: 10px; }
 .succ p { color: #888480; font-size: 14px; line-height: 1.6; }
 
-/* ── SPINNER ── */
+/* SPINNER */
 .spin { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: sp .6s linear infinite; vertical-align: middle; margin-right: 6px; }
 @keyframes sp { to { transform: rotate(360deg); } }
 
-.nodate { padding: 14px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #888480; font-size: 13px; text-align: center; }
-
-/* ── REQUISITI BOX ── */
-.req-box {
-background-color: rgba(255,87,1,0.06);
-border: 1px solid rgba(255,87,1,0.25);
-border-radius: 12px;
-padding: 16px 18px;
-margin-top: 12px;
-display: none;
-}
-.req-box.vis { display: block; }
-.req-title {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-weight: 700; font-size: 11px;
-letter-spacing: .16em; text-transform: uppercase;
-color: #ff5701; margin-bottom: 10px;
-}
-.req-level {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-weight: 900; font-size: 22px;
-color: #fff; margin-bottom: 4px;
-}
-.req-skills {
-display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;
-}
-.req-skill {
-background-color: rgba(255,255,255,0.08);
-border: 1px solid rgba(255,255,255,0.15);
-border-radius: 20px;
-padding: 4px 10px;
-font-size: 12px; color: #fff; font-weight: 500;
-}
-.req-desc { font-size: 13px; color: #888480; line-height: 1.5; margin-bottom: 10px; }
-.req-cert {
-display: flex; align-items: flex-start; gap: 8px;
-background-color: rgba(255,255,255,0.04);
-border-radius: 8px; padding: 10px 12px;
-font-size: 12px; color: #888480; line-height: 1.4;
-}
-.req-cert-ico { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-
-@media (max-width: 420px) {
-.fg { grid-template-columns: 1fr; }
-.date-grid { grid-template-columns: repeat(3,1fr); }
-}
+@media (max-width: 420px) { .fg { grid-template-columns: 1fr; } }
 </style>
 
 </head>
 <body>
-<div class="wrap">
+<div class="w">
 
   <div class="hdr">
-    <div class="hdr-logo">
+    <div class="hdr-top">
       <div class="hdr-bar"></div>
       <span class="hdr-brand">Athlon Club Roma</span>
       <div class="hdr-bar"></div>
@@ -333,21 +274,21 @@ font-size: 12px; color: #888480; line-height: 1.4;
   </div>
 
   <div class="steps" id="steps">
-    <div class="sdot on" id="s1">1</div>
-    <div class="sline" id="l1"></div>
-    <div class="sdot" id="s2">2</div>
-    <div class="sline" id="l2"></div>
-    <div class="sdot" id="s3">3</div>
-    <div class="sline" id="l3"></div>
-    <div class="sdot" id="s4">4</div>
+    <div class="sd on" id="s1">1</div>
+    <div class="sl" id="l1"></div>
+    <div class="sd" id="s2">2</div>
+    <div class="sl" id="l2"></div>
+    <div class="sd" id="s3">3</div>
+    <div class="sl" id="l3"></div>
+    <div class="sd" id="s4">4</div>
   </div>
 
   <!-- P1 -->
 
   <div class="pg on" id="p1">
     <div class="sec">
-      <div class="sec-lbl">Sport</div>
-      <div class="sport-grid" id="sportGrid">
+      <div class="slbl">Sport</div>
+      <div class="sgrid" id="sportGrid">
         <button class="sbtn" data-sport="nuoto">
           <span class="ico">🏊</span>
           <span class="lbl">Nuoto</span>
@@ -360,28 +301,35 @@ font-size: 12px; color: #888480; line-height: 1.4;
         </button>
       </div>
     </div>
-    <div class="sec" id="secCat" style="display:none">
-      <div class="sec-lbl">Categoria</div>
-      <div class="cat-list" id="catList"></div>
-      <div class="req-box" id="reqBox"></div>
-    </div>
-    <div class="sec" id="secDate" style="display:none">
-      <div class="sec-lbl">Data</div>
-      <div class="date-grid" id="dateGrid"></div>
-    </div>
-    <div class="sec" id="secOra" style="display:none">
-      <div class="sec-lbl">Orario</div>
-      <div class="ora-row" id="oraRow"></div>
-    </div>
-    <div class="err" id="e1"></div>
-    <button class="btn" id="next1">Continua &rarr;</button>
+
+```
+<div class="sec" id="secCat" style="display:none">
+  <div class="slbl">Categoria</div>
+  <div class="clist" id="catList"></div>
+  <div class="rqbox" id="rqBox"></div>
+</div>
+
+<div class="sec" id="secDate" style="display:none">
+  <div class="slbl">Data</div>
+  <div class="dgrid" id="dateGrid"></div>
+</div>
+
+<div class="sec" id="secOra" style="display:none">
+  <div class="slbl">Orario</div>
+  <div class="orow" id="oraRow"></div>
+</div>
+
+<div class="err" id="e1"></div>
+<button class="btn" id="next1">Continua &rarr;</button>
+```
+
   </div>
 
   <!-- P2 -->
 
   <div class="pg" id="p2">
     <div class="sec">
-      <div class="sec-lbl">Dati Atleta</div>
+      <div class="slbl">Dati Atleta</div>
       <div class="fg">
         <div class="fld"><label>Nome *</label><input type="text" id="a_nome" placeholder="Marco" autocomplete="off"></div>
         <div class="fld"><label>Cognome *</label><input type="text" id="a_cog" placeholder="Rossi" autocomplete="off"></div>
@@ -397,8 +345,8 @@ font-size: 12px; color: #888480; line-height: 1.4;
       </div>
     </div>
     <div class="err" id="e2"></div>
-    <div class="btnrow">
-      <button class="btnback" id="back2">&#8592; Indietro</button>
+    <div class="brow">
+      <button class="bbk" id="back2">&#8592; Indietro</button>
       <button class="btn" id="next2">Continua &rarr;</button>
     </div>
   </div>
@@ -407,7 +355,7 @@ font-size: 12px; color: #888480; line-height: 1.4;
 
   <div class="pg" id="p3">
     <div class="sec">
-      <div class="sec-lbl">Dati Genitore / Tutore</div>
+      <div class="slbl">Dati Genitore / Tutore</div>
       <div class="fg">
         <div class="fld"><label>Nome *</label><input type="text" id="g_nome" placeholder="Luca" autocomplete="off"></div>
         <div class="fld"><label>Cognome *</label><input type="text" id="g_cog" placeholder="Rossi" autocomplete="off"></div>
@@ -421,8 +369,8 @@ font-size: 12px; color: #888480; line-height: 1.4;
       </div>
     </div>
     <div class="err" id="e3"></div>
-    <div class="btnrow">
-      <button class="btnback" id="back3">&#8592; Indietro</button>
+    <div class="brow">
+      <button class="bbk" id="back3">&#8592; Indietro</button>
       <button class="btn" id="next3">Continua &rarr;</button>
     </div>
   </div>
@@ -431,12 +379,12 @@ font-size: 12px; color: #888480; line-height: 1.4;
 
   <div class="pg" id="p4">
     <div class="sec">
-      <div class="sec-lbl">Riepilogo</div>
+      <div class="slbl">Riepilogo</div>
       <div class="rcard" id="recap"></div>
     </div>
     <div class="err" id="e4"></div>
-    <div class="btnrow">
-      <button class="btnback" id="back4">&#8592; Modifica</button>
+    <div class="brow">
+      <button class="bbk" id="back4">&#8592; Modifica</button>
       <button class="btn" id="send">Conferma Prenotazione</button>
     </div>
   </div>
@@ -457,29 +405,28 @@ font-size: 12px; color: #888480; line-height: 1.4;
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
-var ST = { sport: null, cat: null, data: null, ora: null };
-var ORA_MAP = {};
+var ST = { sport:null, cat:null, data:null, ora:null };
+var OMAP = {};
 var MESI = [‘Gen’,‘Feb’,‘Mar’,‘Apr’,‘Mag’,‘Giu’,‘Lug’,‘Ago’,‘Set’,‘Ott’,‘Nov’,‘Dic’];
 var GG   = [‘Dom’,‘Lun’,‘Mar’,‘Mer’,‘Gio’,‘Ven’,‘Sab’];
 var OGGI = new Date(); OGGI.setHours(0,0,0,0);
 
-function pad(n) { return (‘0’+n).slice(-2); }
-function fmt(d) { return d.getFullYear()+’-’+pad(d.getMonth()+1)+’-’+pad(d.getDate()); }
-function future(d) { var x=new Date(d); x.setHours(0,0,0,0); return x>OGGI; }
+function pad(n){ return (‘0’+n).slice(-2); }
+function fmt(d){ return d.getFullYear()+’-’+pad(d.getMonth()+1)+’-’+pad(d.getDate()); }
+function future(d){ var x=new Date(d); x.setHours(0,0,0,0); return x>OGGI; }
 
-function range(a,b) {
-var out=[], c=new Date(a); c.setHours(0,0,0,0); var e=new Date(b);
+function range(a,b){
+var out=[],c=new Date(a),e=new Date(b); c.setHours(0,0,0,0);
 while(c<=e){ if(future(c)) out.push(new Date(c)); c.setDate(c.getDate()+1); }
 return out;
 }
-
-function excl(d,rr) {
+function excl(d,rr){
 var s=fmt(d);
 for(var i=0;i<rr.length;i++) if(s>=rr[i][0]&&s<=rr[i][1]) return true;
 return false;
 }
 
-function getDates(sport,cat) {
+function getDates(sport,cat){
 var m1=new Date(‘2026-05-02’),m2=new Date(‘2026-05-31’);
 var j1=new Date(‘2026-06-01’),j2=new Date(‘2026-06-30’);
 var xM=[[‘2026-05-11’,‘2026-05-17’]];
@@ -490,82 +437,77 @@ list.forEach(function(d){ if(days.indexOf(d.getDay())>=0&&!excl(d,ex)) r.push({d
 }
 if(sport===‘nuoto’){
 if(cat===‘propaganda’){ add(range(m1,m2),[1,4,6],xM,[‘17:30’]); add(range(j1,j2),[1,4],xJ,[‘16:30’,‘17:20’]); }
-else { add(range(m1,m2),[1,2,4,5],xM,[‘15:00’]); add(range(j1,j2),[1,4],xJ,[‘16:30’,‘17:20’]); }
+else{ add(range(m1,m2),[1,2,4,5],xM,[‘15:00’]); add(range(j1,j2),[1,4],xJ,[‘16:30’,‘17:20’]); }
 } else {
 if(cat===‘u14’){ add(range(m1,m2),[2,5],[],[‘14:30’]); add(range(j1,j2),[2,4],xJ,[‘16:30’,‘17:20’]); }
-else { add(range(m1,m2),[2,5],xM,[‘16:50’]); add(range(j1,j2),[2,4],xJ,[‘16:30’,‘17:20’]); }
+else{ add(range(m1,m2),[2,5],xM,[‘16:50’]); add(range(j1,j2),[2,4],xJ,[‘16:30’,‘17:20’]); }
 }
 return r;
 }
 
-function goPage(n) {
+// PAGES
+function goPage(n){
 document.querySelectorAll(’.pg’).forEach(function(p){ p.classList.remove(‘on’); });
-var pg=document.getElementById(n===‘Ok’?‘pOk’:‘p’+n);
-if(pg) pg.classList.add(‘on’);
-if(n!==‘Ok’) {
+document.getElementById(n===‘Ok’?‘pOk’:‘p’+n).classList.add(‘on’);
+if(n!==‘Ok’){
 for(var i=1;i<=4;i++){
 var d=document.getElementById(‘s’+i), l=document.getElementById(‘l’+i);
-d.classList.remove(‘on’,‘done’); d.textContent=i;
+d.className=‘sd’; d.textContent=i;
 if(i<n){ d.classList.add(‘done’); d.textContent=‘✓’; }
 else if(i===n) d.classList.add(‘on’);
-if(l) l.classList.toggle(‘done’,i<n);
+if(l) l.className=‘sl’+(i<n?’ done’:’’);
 }
 }
 window.scrollTo(0,0);
 }
 
-function showErr(id,msg) {
+function err(id,msg){
 var el=document.getElementById(id);
 el.textContent=msg; el.style.display=‘block’;
 setTimeout(function(){ el.style.display=‘none’; },4000);
 }
 
+// CATEGORIE
 var CATS={
-nuoto:[{id:‘propaganda’,n:‘Propaganda’,a:‘Nati 2014–2018’,b:‘Lun/Gio/Sab’},{id:‘agonismo’,n:‘Agonismo’,a:‘Nati 2008–2015’,b:‘Lun/Mar/Gio/Ven’}],
-pallanuoto:[{id:‘u14’,n:‘Under 14’,a:‘Nati 2013–2015’,b:‘Mar/Ven’},{id:‘acquagol’,n:‘Acquagol’,a:‘Nati 2016–2018’,b:‘Mar/Ven’}]
+nuoto:[
+{id:‘propaganda’,n:‘Propaganda’,a:‘Nati 2014–2018’,b:‘Lun/Gio/Sab’},
+{id:‘agonismo’,  n:‘Agonismo’,  a:‘Nati 2008–2015’,b:‘Lun/Mar/Gio/Ven’}
+],
+pallanuoto:[
+{id:‘u14’,     n:‘Under 14’,a:‘Nati 2013–2015’,b:‘Mar/Ven’},
+{id:‘acquagol’,n:‘Acquagol’,a:‘Nati 2016–2018’,b:‘Mar/Ven’}
+]
 };
 
-var REQUISITI = {
-propaganda: {
-livello: ‘Livello avanzato scuola nuoto’,
-skills: [‘Stile libero’, ‘Dorso’, ‘Rana’],
-desc: ‘Il bambino deve aver già frequentato la scuola nuoto e saper nuotare in autonomia i 4 stili base. La prova valuta la tecnica e la capacità di seguire gli allenamenti strutturati.’,
-cert: ‘Certificato Medico per Attività Sportiva Agonistica (obbligatorio all'iscrizione)’
+// REQUISITI (fonte: athlonroma.it/pallanuoto e /nuoto-agonistico)
+var REQ={
+propaganda:{
+livello:‘Livello avanzato scuola nuoto’,
+skills:[‘Stile libero’,‘Dorso’,‘Rana’],
+desc:‘Il bambino deve aver già completato la scuola nuoto e saper nuotare autonomamente. La prova valuta la tecnica di base e la capacità di seguire allenamenti strutturati. Si partecipa al Circuito ASI di nuoto.’,
+cert:‘Certificato Medico per Attività Sportiva Agonistica — obbligatorio all'iscrizione’
 },
-agonismo: {
-livello: ‘Livello intermedio/avanzato’,
-skills: [‘Stile libero’, ‘Dorso’, ‘Rana’, ‘Delfino (base)’],
-desc: ‘Il nuotatore deve saper percorrere almeno 25m in stile libero in modo autonomo e controllato. La prova valuta tecnica, resistenza e attitudine al lavoro di squadra.’,
-cert: ‘Certificato Medico per Attività Sportiva Agonistica (obbligatorio all'iscrizione)’
+agonismo:{
+livello:‘Livello intermedio / avanzato’,
+skills:[‘Stile libero’,‘Dorso’,‘Rana’,‘Delfino (base)’],
+desc:‘Il nuotatore deve percorrere almeno 25m in stile libero in modo autonomo e controllato. La prova valuta tecnica, resistenza e attitudine al lavoro di squadra. Gare ufficiali circuito ASI.’,
+cert:‘Certificato Medico per Attività Sportiva Agonistica — obbligatorio all'iscrizione’
 },
-u14: {
-livello: ‘Livello B2’,
-skills: [‘Stile libero’, ‘Dorso’, ‘Gambe rana’],
-desc: ‘L'atleta deve saper nuotare in modo autonomo stile libero, dorso e gambe rana. La prova di inserimento è obbligatoria per valutare il livello tecnico prima dell'ammissione.’,
-cert: ‘Certificato Medico per Attività Sportiva Agonistica (obbligatorio all'iscrizione)’
+u14:{
+livello:‘Livello B2’,
+skills:[‘Stile libero’,‘Dorso’,‘Gambe rana’],
+desc:‘L'atleta deve nuotare autonomamente stile libero, dorso e gambe rana. Prova di inserimento obbligatoria per valutare il livello tecnico prima dell'ammissione. Partecipazione a tornei domenicali.’,
+cert:‘Certificato Medico per Attività Sportiva Agonistica — obbligatorio all'iscrizione’
 },
-acquagol: {
-livello: ‘Livello B2’,
-skills: [‘Stile libero’, ‘Dorso’, ‘Gambe rana’],
-desc: ‘Il bambino deve saper nuotare autonomamente stile libero, dorso e gambe rana. La prova di inserimento è obbligatoria per valutare il livello tecnico prima dell'ammissione.’,
-cert: ‘Certificato Medico per Attività Sportiva Non Agonistica (obbligatorio all'iscrizione)’
+acquagol:{
+livello:‘Livello B2’,
+skills:[‘Stile libero’,‘Dorso’,‘Gambe rana’],
+desc:‘Il bambino deve nuotare autonomamente stile libero, dorso e gambe rana. Prova di inserimento obbligatoria. Nessuna competizione esterna: si lavora su fondamentali di pallanuoto in modo ludico.’,
+cert:‘Certificato Medico per Attività Sportiva Non Agonistica — obbligatorio all'iscrizione’
 }
 };
 
-function renderRequisiti(cat) {
-var box = document.getElementById(‘reqBox’);
-var r = REQUISITI[cat];
-if(!r){ box.classList.remove(‘vis’); return; }
-box.innerHTML =
-‘<div class="req-title">⚠ Requisiti minimi richiesti</div>’
-+’<div class="req-level">’+r.livello+’</div>’
-+’<div class="req-skills">’+r.skills.map(function(s){ return ‘<span class="req-skill">’+s+’</span>’; }).join(’’)+’</div>’
-+’<div class="req-desc">’+r.desc+’</div>’
-+’<div class="req-cert"><span class="req-cert-ico">📋</span><span>’+r.cert+’</span></div>’;
-box.classList.add(‘vis’);
-}
-
-function renderCat(sport) {
+function renderCat(sport){
 var el=document.getElementById(‘catList’); el.innerHTML=’’;
 CATS[sport].forEach(function(c){
 var b=document.createElement(‘button’);
@@ -575,19 +517,31 @@ el.appendChild(b);
 });
 }
 
-function renderDate() {
-var grid=document.getElementById(‘dateGrid’); var list=getDates(ST.sport,ST.cat);
-ORA_MAP={}; grid.innerHTML=’’;
+function renderReq(cat){
+var box=document.getElementById(‘rqBox’), r=REQ[cat];
+if(!r){ box.className=‘rqbox’; return; }
+box.innerHTML=
+‘<div class="rqtitle">⚠️ Requisiti minimi di accesso</div>’
++’<div class="rqlvl">’+r.livello+’</div>’
++’<div class="rqskills">’+r.skills.map(function(s){ return ‘<span class="rqsk">’+s+’</span>’; }).join(’’)+’</div>’
++’<div class="rqdesc">’+r.desc+’</div>’
++’<div class="rqcert"><span class="rqcico">📋</span><span>’+r.cert+’</span></div>’;
+box.className=‘rqbox vis’;
+}
+
+function renderDate(){
+var grid=document.getElementById(‘dateGrid’), list=getDates(ST.sport,ST.cat);
+OMAP={}; grid.innerHTML=’’;
 if(!list.length){ grid.innerHTML=’<div class="nodate">Nessuna data disponibile.</div>’; return; }
 list.forEach(function(it){
-var k=fmt(it.d); ORA_MAP[k]=it.ora;
+var k=fmt(it.d); OMAP[k]=it.ora;
 var b=document.createElement(‘button’); b.className=‘dbtn’; b.dataset.k=k;
 b.innerHTML=’<div class="dd">’+it.d.getDate()+’</div><div class="dm">’+MESI[it.d.getMonth()]+’</div><div class="dw">’+GG[it.d.getDay()]+’</div>’;
 grid.appendChild(b);
 });
 }
 
-function renderOra(ore) {
+function renderOra(ore){
 var el=document.getElementById(‘oraRow’); el.innerHTML=’’; ST.ora=null;
 ore.forEach(function(o){
 var b=document.createElement(‘button’); b.className=‘obra’; b.dataset.o=o; b.textContent=o;
@@ -595,17 +549,18 @@ el.appendChild(b);
 });
 if(ore.length===1){
 ST.ora=ore[0]; el.querySelector(’.obra’).classList.add(‘on’);
-var sp=document.createElement(‘span’); sp.className=‘ora-fixed’; sp.textContent=‘orario fisso’;
+var sp=document.createElement(‘span’); sp.className=‘ofix’; sp.textContent=‘orario fisso’;
 el.appendChild(sp);
 }
 }
 
-// ── EVENTS ──
+// EVENTS
 document.getElementById(‘sportGrid’).addEventListener(‘click’,function(e){
 var b=e.target.closest(’.sbtn’); if(!b) return;
 ST.sport=b.dataset.sport; ST.cat=null; ST.data=null; ST.ora=null;
 document.querySelectorAll(’.sbtn’).forEach(function(x){ x.classList.remove(‘on’); });
 b.classList.add(‘on’);
+document.getElementById(‘rqBox’).className=‘rqbox’;
 renderCat(ST.sport);
 document.getElementById(‘secCat’).style.display=‘block’;
 document.getElementById(‘secDate’).style.display=‘none’;
@@ -617,7 +572,7 @@ var b=e.target.closest(’.cbtn’); if(!b) return;
 ST.cat=b.dataset.cat; ST.data=null; ST.ora=null;
 document.querySelectorAll(’.cbtn’).forEach(function(x){ x.classList.remove(‘on’); });
 b.classList.add(‘on’);
-renderRequisiti(ST.cat);
+renderReq(ST.cat);
 renderDate();
 document.getElementById(‘secDate’).style.display=‘block’;
 document.getElementById(‘secOra’).style.display=‘none’;
@@ -625,7 +580,7 @@ document.getElementById(‘secOra’).style.display=‘none’;
 
 document.getElementById(‘dateGrid’).addEventListener(‘click’,function(e){
 var b=e.target.closest(’.dbtn’); if(!b) return;
-var k=b.dataset.k; var ore=ORA_MAP[k]; if(!ore) return;
+var k=b.dataset.k, ore=OMAP[k]; if(!ore) return;
 ST.data=k; ST.ora=null;
 document.querySelectorAll(’.dbtn’).forEach(function(x){ x.classList.remove(‘on’); });
 b.classList.add(‘on’);
@@ -641,19 +596,19 @@ b.classList.add(‘on’);
 });
 
 document.getElementById(‘next1’).addEventListener(‘click’,function(){
-if(!ST.sport)  return showErr(‘e1’,‘Seleziona uno sport.’);
-if(!ST.cat)    return showErr(‘e1’,‘Seleziona una categoria.’);
-if(!ST.data)   return showErr(‘e1’,‘Seleziona una data.’);
-if(!ST.ora)    return showErr(‘e1’,‘Seleziona un orario.’);
+if(!ST.sport)  return err(‘e1’,‘Seleziona uno sport.’);
+if(!ST.cat)    return err(‘e1’,‘Seleziona una categoria.’);
+if(!ST.data)   return err(‘e1’,‘Seleziona una data.’);
+if(!ST.ora)    return err(‘e1’,‘Seleziona un orario.’);
 goPage(2);
 });
 
 document.getElementById(‘back2’).addEventListener(‘click’,function(){ goPage(1); });
 document.getElementById(‘next2’).addEventListener(‘click’,function(){
 if(!document.getElementById(‘a_nome’).value.trim()||!document.getElementById(‘a_cog’).value.trim())
-return showErr(‘e2’,‘Inserisci nome e cognome dell'atleta.’);
-if(!document.getElementById(‘a_dob’).value) return showErr(‘e2’,‘Inserisci la data di nascita dell'atleta.’);
-if(!document.getElementById(‘a_note’).value.trim()) return showErr(‘e2’,‘Descrivi il livello natatorio dell'atleta.’);
+return err(‘e2’,‘Inserisci nome e cognome dell'atleta.’);
+if(!document.getElementById(‘a_dob’).value) return err(‘e2’,‘Inserisci la data di nascita dell'atleta.’);
+if(!document.getElementById(‘a_note’).value.trim()) return err(‘e2’,‘Descrivi il livello natatorio dell'atleta.’);
 goPage(3);
 });
 
@@ -662,10 +617,10 @@ document.getElementById(‘next3’).addEventListener(‘click’,function(){
 var gn=document.getElementById(‘g_nome’).value.trim(), gc=document.getElementById(‘g_cog’).value.trim();
 var gd=document.getElementById(‘g_dob’).value, gcel=document.getElementById(‘g_cel’).value.trim();
 var gem=document.getElementById(‘g_email’).value.trim();
-if(!gn||!gc) return showErr(‘e3’,‘Inserisci nome e cognome del genitore.’);
-if(!gd)      return showErr(‘e3’,‘Inserisci la data di nascita del genitore.’);
-if(!gcel)    return showErr(‘e3’,‘Inserisci il cellulare.’);
-if(!gem||gem.indexOf(’@’)<0) return showErr(‘e3’,‘Inserisci un'email valida.’);
+if(!gn||!gc) return err(‘e3’,‘Inserisci nome e cognome del genitore.’);
+if(!gd)      return err(‘e3’,‘Inserisci la data di nascita del genitore.’);
+if(!gcel)    return err(‘e3’,‘Inserisci il cellulare.’);
+if(!gem||gem.indexOf(’@’)<0) return err(‘e3’,‘Inserisci un'email valida.’);
 var L={nuoto:‘Nuoto’,pallanuoto:‘Pallanuoto’,propaganda:‘Propaganda’,agonismo:‘Agonismo’,u14:‘Under 14’,acquagol:‘Acquagol’};
 var dp=ST.data.split(’-’);
 document.getElementById(‘recap’).innerHTML=’<h3>Riepilogo</h3>’
@@ -685,13 +640,13 @@ document.getElementById(‘send’).addEventListener(‘click’,function(){
 var btn=document.getElementById(‘send’);
 btn.disabled=true; btn.innerHTML=’<span class="spin"></span>Invio in corso…’;
 var payload={
-sport:ST.sport,categoria:ST.cat,data_prova:ST.data,orario:ST.ora,
-atleta:{nome:document.getElementById(‘a_nome’).value.trim(),cognome:document.getElementById(‘a_cog’).value.trim(),data_nascita:document.getElementById(‘a_dob’).value,note_livello:document.getElementById(‘a_note’).value.trim()},
-genitore:{nome:document.getElementById(‘g_nome’).value.trim(),cognome:document.getElementById(‘g_cog’).value.trim(),data_nascita:document.getElementById(‘g_dob’).value,cellulare:document.getElementById(‘g_cel’).value.trim(),email:document.getElementById(‘g_email’).value.trim()},
-timestamp:new Date().toISOString(),source:‘form-prove-athlon’
+sport:ST.sport, categoria:ST.cat, data_prova:ST.data, orario:ST.ora,
+atleta:{ nome:document.getElementById(‘a_nome’).value.trim(), cognome:document.getElementById(‘a_cog’).value.trim(), data_nascita:document.getElementById(‘a_dob’).value, note_livello:document.getElementById(‘a_note’).value.trim() },
+genitore:{ nome:document.getElementById(‘g_nome’).value.trim(), cognome:document.getElementById(‘g_cog’).value.trim(), data_nascita:document.getElementById(‘g_dob’).value, cellulare:document.getElementById(‘g_cel’).value.trim(), email:document.getElementById(‘g_email’).value.trim() },
+timestamp:new Date().toISOString(), source:‘form-prove-athlon’
 };
 fetch(‘https://automazione.n8ndevelop.it/webhook/prenotazione-prove-athlon’,{
-method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify(payload)
+method:‘POST’, headers:{‘Content-Type’:‘application/json’}, body:JSON.stringify(payload)
 }).then(function(r){
 if(r.status>=200&&r.status<400){
 document.getElementById(‘steps’).style.display=‘none’;
@@ -699,7 +654,7 @@ goPage(‘Ok’);
 } else throw new Error(r.status);
 }).catch(function(){
 btn.disabled=false; btn.innerHTML=‘Conferma Prenotazione’;
-showErr(‘e4’,‘Errore nell'invio. Riprova o contatta lo staff.’);
+err(‘e4’,‘Errore nell'invio. Riprova o contatta lo staff.’);
 });
 });
 
